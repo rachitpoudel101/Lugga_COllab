@@ -1,0 +1,103 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:lightblue;
+}
+
+.logo {
+    max-width: 120px;
+    height: auto;
+}
+
+nav {
+    display: flex;
+}
+
+nav a {
+    color: #333;
+    text-decoration: none;
+    margin: 0 15px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+nav a.active {
+    background-color: #333;
+    color: #fff;
+}
+
+.shop-section {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.shop-section h2 {
+    margin-top: 0;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.product {
+    width: 30%;
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.product img {
+    max-width: 100%;
+    height: auto;
+}
+
+.product h3 {
+    margin-top: 0;
+}
+
+.product button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.product button:hover {
+    background-color: #555;
+}
+
+#category-kids{
+    width:95%;
+    margin:60px 0 40px 20px;
+    font-size: 32px;
+    font-weight: bold;
+}
+#category-kids>div{
+    width:100%;
+    margin:auto;
+    display:grid;
+    grid-template-columns: repeat(6,1fr);
+    grid-template-rows: auto;
+
+}
+#category-kids img{
+    width:100%;
+}
