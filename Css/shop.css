@@ -12,7 +12,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color:lightblue;
+    background-color: lightblue;
 }
 
 .logo {
@@ -30,12 +30,27 @@ nav a {
     margin: 0 15px;
     padding: 10px;
     border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
 }
 
+nav a:hover {
+    background-color: #333;
+    color: #fff;
+}
 nav a.active {
     background-color: #333;
     color: #fff;
 }
+.model-photo {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.model-photo img {
+    max-width: 100%;
+    height: auto;
+}
+
 
 .shop-section {
     background-color: #fff;
