@@ -1,0 +1,280 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family:  'Roboto', sans-serif;
+}
+
+h1{
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+h2{
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+h3{
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+h4{
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+h5{
+    font-size: 1rem;
+    font-weight: 400;
+}
+h6{
+    color:blue;
+}
+
+.navbar{
+    font-size: 16px;
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+    top:0;
+    left: 0;
+    position:sticky ;
+}
+.nav-buttons{
+    margin-left: 50%;
+}
+
+.navbar-light .navbar-nav .nav-link{
+    padding: 0 20px;
+    color: black;
+    transition: 0.4s ease;
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar i:hover,
+.navbar-light .navbar-nav .nav-link:active
+.navbar i:hover{
+    color: red;
+    cursor: pointer;
+}
+.navbar i .bag { 
+    font-size: 1.2rem;
+    padding: 0 0.7px;
+    transition: o.4s ease;;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+@media only screen and (max-width:990px) {
+    .nav-buttons{
+        margin: 10px;
+    }
+    .nav-buttons ul{
+        margin: 1rem;
+        justify-content:flex-start;
+        text-align: left;
+    }
+    .nav-buttons ul.fas{
+        margin: 20px 5px 10px 20px;
+    }
+    
+}
+
+#home{
+    background-image: url(../Imgs/men3.jpg);
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position-x: 350px;
+    background-position-y: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+#home span{
+    color: blueviolet;
+}
+ button {
+    padding: 10px 20px; 
+    margin: 10px;
+    color: black;
+    background: black;
+    background-color: transparent; 
+    border-radius: 5px; 
+    cursor: pointer;
+}
+button:hover {
+    background-color: black; 
+    color: white;
+}
+
+
+#new .one img{
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#new .one{
+    position: relative;
+}
+
+#new .one .details{
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: burlywood;
+    font-weight: bold;
+    transition: 0.4s ease;
+    opacity: 0.8;
+    background-color: rgb(1, 1, 1);
+    width: 100%;
+    height: 100%;
+}
+
+#new .one:nth-child(1) .details{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: start;
+}
+#new .one:nth-child(2) .details{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+#new .one:nth-child(3) .details{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: end;
+}
+
+/* Product*/
+
+.product{
+    cursor: pointer;
+    margin-bottom: 2rem;
+}
+.product img{
+    transition: 0.3s all;
+}
+.product:hover img{
+    opacity: 0.5;
+}
+
+/* fotter*/
+/* Footer */
+.bg-body-tertiary {
+    background-color: #f8f9fa; /* Light gray background */
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 1140px; /* Adjust as needed */
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  
+  .p-4 {
+    padding: 1.5rem; /* Adjust as needed */
+  }
+  
+  .mb-4 {
+    margin-bottom: 1.5rem; /* Adjust as needed */
+  }
+  
+  .m-1 {
+    margin: 0.25rem; /* Adjust as needed */
+  }
+  
+  .btn-outline {
+    border-width: 2px; /* Adjust as needed */
+  }
+  
+  .btn-floating {
+    border-radius: 50%; /* Adjust as needed */
+  }
+  
+  .form-outline {
+    position: relative;
+  }
+  
+  .form-outline input {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem; /* Adjust as needed */
+    border: 1px solid #ced4da; /* Adjust as needed */
+    border-radius: 0.25rem; /* Adjust as needed */
+  }
+  
+  .form-label {
+    position: absolute;
+    top: 0;
+    left: 0.5rem;
+    padding: 0.25rem;
+    background-color: #fff;
+    font-size: 0.875rem; /* Adjust as needed */
+  }
+  
+  .col-auto {
+    margin-right: auto;
+    margin-left: auto;
+  }
+  
+  .text-uppercase {
+    text-transform: uppercase;
+  }
+  
+  .list-unstyled {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .text-body {
+    color: #212529; /* Adjust as needed */
+  }
+  
+  /* Styling for the footer links */
+  .list-unstyled li {
+    margin-bottom: 8px; /* Adjust as needed */
+  }
+  
+  .list-unstyled li a {
+    color: #6c757d; /* Adjust link color */
+    transition: color 0.3s ease;
+  }
+  
+  .list-unstyled li a:hover {
+    color: #007bff; /* Adjust link hover color */
+  }
+  
+  /* Styling for the copyright section */
+  .text-reset {
+    color: #007bff; /* Adjust as needed */
+    text-decoration: none;
+  }
+  
+  .fw-bold {
+    font-weight: bold;
+  }
+  
+  .p-3 {
+    padding: 1rem !important; /* Adjust as needed */
+    /* Additional styling for the background color */
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
