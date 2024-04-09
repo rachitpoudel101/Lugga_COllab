@@ -278,3 +278,221 @@ button:hover {
     background-color: rgba(0, 0, 0, 0.05);
   }
   
+
+
+/* Login */
+#login-form {
+    width: 50%;
+    margin: 5px auto;
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid #fb774b;
+}
+
+#login-form input {
+    width: 100%;
+    margin: 5px auto;
+}
+
+#login-form #login-btn {
+    background-color: #fb774b;
+    color: #fff;
+}
+
+#login-form #register-url {
+    color: #fb774b;
+}
+
+
+.small-img-group{
+    display: flex;
+    justify-content:space-between;
+}
+.small-img-col{
+    flex-basis: 24%;
+    cursor: pointer;
+}
+
+.single-product input{
+    width: 50px;
+    height:40px;
+    padding-left: 10px;
+    font-size: 16px;
+    margin-right: 10px;
+}
+.single-product input:focus{
+    outline:none
+}
+
+.single-product .buy-btn{
+    background-color: red;
+    opacity: 1;
+    transition: 0.4s all;
+}
+.single-product .buy-btn:hover{
+    background-color: yellow;
+}
+
+
+
+
+/* Cart */
+.cart table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cart .product-info {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cart th {
+    text-align: left;
+    padding: 5px 10px;
+    color: #fff;
+    background-color: #fb774b;
+}
+
+.cart td {
+    padding: 10px 20px;
+}
+
+.cart td img {
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+}
+.cart td a{
+    color: #fb774b;
+}
+.cart .remove-bth{
+    color:#fb774b;
+    text-decoration: none;
+    font-size: 14px;
+}
+.cart .edit-btn{
+    color: #fb774b;
+    text-decoration: none;
+    font-size: 15px;
+}
+.cart .product-info p{
+    margin: 3px;
+}
+
+.cart-total {
+    display: flex;
+    justify-content: flex-end;
+}
+.cart-total table{
+    width: 100%;
+    max-width: 500px;
+    border-top: 3px solid #fb774b;
+}
+ td:last-child{
+    text-align: right;
+ }
+
+ th:last-child{
+    text-align: right;
+ }
+
+ .checkout-container{
+    display: flex;
+    justify-content: flex-end;
+ }
+ .checkout-btn{
+     display: flex;
+     justify-content: flex-end;
+     background-color: #fb774b;
+     color: white;
+ }
+
+ /* Register */
+#register-form {
+  width: 50%;
+  margin: 5px auto;
+  text-align: center;
+  padding: 20px;
+  border-top: 1px solid #fb774b;
+}
+
+#register-form input {
+  width: 100%;
+  margin: 5px auto;
+}
+
+#register-form #register-btn {
+  background-color: #fb774b;
+  color: #fff;
+}
+
+#register-form #login-url {
+  color: #fb774b;
+}
+
+
+/* Account */
+#account-form {
+    width: 50%;
+    margin: 35px auto;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  #account-form input {
+    margin: 5px auto;
+  }
+  
+  #account-form #change-pass-btn {
+    color: #fff;
+    background-color: #fb774b;
+  }
+  
+  #account-form #order-btn,
+  #account-form #logout-btn {
+    color: #fb774b;
+    text-decoration: none;
+  }
+  
+
+ /* Checkout */
+ #checkout-form {
+    text-align: center;
+  }
+
+  .checkout-small-element {
+    display: inline-block;
+    width: 48%;
+    margin: 10px auto;
+  }
+
+  .checkout-large-element {
+    width: 97%;
+  }
+
+  .checkout-btn-container {
+    margin: 10px;
+    text-align: right;
+    margin-right: 40px;
+  }
+
+  #checkout-btn {
+    color: #fff;
+    background-color: #fb774b;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  #checkout-btn:hover {
+    background-color: #ff6e40;
+  }
+
+  /* Contact */
+#contact span {
+    color: #fb774b;
+  }
+  
