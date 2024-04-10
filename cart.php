@@ -1,3 +1,47 @@
+<?php
+session_start();
+if(isset($_POST['add_to_cart'])){
+    if(!isset($_SESSION['cart'])){
+      $_SESSION['cart'] = array();
+        $product_array_ids = array_column($_SESSION['cart'],"product_id");
+        if( !in_array($_POST['product_id'],$product_array_ids)){
+            $product_array = array(
+            'product_id' => $_POST['$product_id'],
+            'product_name' => $_POST['$product_name'],
+            'product_price' => $_POST['product_price'],
+            'product_image' =>  $_POST['product_image'],
+            'product_quantity' => $_POST['product_quantity']
+            );
+            $_SESSION['cart'][$_POST['product_id']] = $product_array;
+        }else{
+            echo '<script> Alert("Product was already to cart");</script>';
+            // echo '<script> window.location="index.php";</script>';
+        }
+    }
+    else{
+      $product_id = $_POST['product_id'];
+      $product_name = $_POST['product_name'];
+      $product_price = $_POST['product_price'];
+      $product_image = $_POST['product_image'];
+      $product_quantity = $_POST['product_quantity'];
+
+      $product_array = array(
+        'product_id' => $product_id,
+        'product_name' => $product_name,
+        'product_price' => $product_price,
+        'product_image' => $product_image,
+        'product_quantity' => $product_quantity
+
+      );
+      $_SESSION['cart'][$product_id] = $product_array;
+    }
+
+
+}else{
+  header('Location:index.php');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +50,7 @@
     <title>Home </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/assets/css/index.css">
+    <link rel="stylesheet" href="assets/css/index.css">
 </head>
 <body>
  <!--Navbar-->
@@ -50,59 +94,22 @@
                 <th>Quantity</th>
                 <th>Subtotal</th>
             </tr>
-            <tr>
-                <td>
-                <div class="product-info">
-                    <img src="/assets/Imgs/Gucci_Tshirts.avif" alt="White Shoes">
-                    <div>
-                    <p>White Shoes</p>
-                    <small><span>$</span>155</small><br>
-                    <a class="remove-btn" href="#">Remove</a>
-                    </div>
-                </div>
-                </td>
-                <td>
-                <input type="number" value="1">
-                <a class="edit-btn">Edit</a>
-                </td>
-                <td>
-                <span>$</span><span class="product-price">155</span>
-                </td>
-            </tr>
 
+            <?php foreach ($_SESSION['cart'] as $key=>$value){?>
             <tr>
                 <td>
                 <div class="product-info">
-                    <img src="/assets/Imgs/Gucci_Tshirts.avif" alt="White Shoes">
+                    <img src="assets/Imgs/<?php echo $value['product_image'];?>" height="80px" width= "80px" margin-right="10px"/>
                     <div>
-                    <p>White Shoes</p>
-                    <small><span>$</span>155</small><br>
+                    <p><?php echo $value['product_name'];?></p>
+                    <small><span>$</span><?php echo $value['product_price'];?></small>
+                    <br>
                     <a class="remove-btn" href="#">Remove</a>
                     </div>
                 </div>
                 </td>
                 <td>
-                <input type="number" value="1">
-                <a class="edit-btn">Edit</a>
-                </td>
-                <td>
-                <span>$</span><span class="product-price">155</span>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                <div class="product-info">
-                    <img src="/assets/Imgs/Gucci_Tshirts.avif" alt="White Shoes">
-                    <div>
-                    <p>White Shoes</p>
-                    <small><span>$</span>155</small><br>
-                    <a class="remove-btn" href="#">Remove</a>
-                    </div>
-                </div>
-                </td>
-                <td>
-                <input type="number" value="1">
+                <input type="number" value="<?php echo $value['product_quantity'];?>">
                 <a class="edit-btn">Edit</a>
                 </td>
                 <td>
@@ -110,6 +117,7 @@
                 </td>
             </tr>
             </table>
+            <?php }?>
 
             <div class="cart-total">
                 <table>

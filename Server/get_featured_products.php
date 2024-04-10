@@ -7,5 +7,4 @@ $st->execute();
 $featured_products = $st->get_result();
 
 
-
 ?>

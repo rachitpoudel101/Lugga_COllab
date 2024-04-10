@@ -1,3 +1,21 @@
+<?php 
+include('Server/connection.php');
+if (isset($_GET['product_id'])){
+    $product_id = $_GET['product_id'];
+    $st =$conn->prepare("SELECT * FROM products WHERE product_id=?");
+    $st->bind_param("i", $product_id);
+    $st->execute();
+
+    $result = $st->get_result();
+}
+else{
+    header('location:index.php');
+}
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,13 +24,13 @@
     <title>Shop </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/assets/css/index.css">
+    <link rel="stylesheet" href="assets/css/index.css">
 </head>
 <body>
         <!--Navbar-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light py-3 fixed top">
             <div class="container">
-              <img src="/assets/Imgs/logo.png" alt="Logo">
+              <img src="assets/Imgs/logo.png" alt="Logo">
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -41,37 +59,42 @@
         
         <section class=" container single-product my-5 pt-5">
             <div class="row mt-5">
+                <?php while($row = $result->fetch_assoc()){?>
                 <div class="col-lg-5 col-md-6 col-sm-12">
-                    <img class="img-fluid w-100 pb-1" src="/assets/Imgs/Gucci_Tshirts.avif" id="mainImg" alt="">
+                    <img class="img-fluid w-100 pb-1" src="assets/Imgs/<?php echo $row['product_image'];?>" id="mainImg"/>
                     <div class="small-img-group">
                         <div class="samll-img-col">
-                            <img src="/assets/Imgs/Gucci_Tshirts.jpg"width="100%" class="small-img" alt="">
+                            <img src="assets/Imgs/<?php echo $row['product_image'];?>"width="100%" class="small-img"/>
                         </div>
                         <div class="samll-img-col">
-                            <img src="/assets/Imgs/Channel_Tshirts.jpeg"width="100%" class="small-img" alt="">
+                            <img src="assets/Imgs/<?php echo $row['product_image2'];?>"width="100%" class="small-img"/>
                         </div>
                         <div class="samll-img-col">
-                            <img src="/assets/Imgs/HOddy.jpg"width="100%" class="small-img" alt="">
+                            <img src="assets/Imgs/<?php echo $row['product_image3'];?>"width="100%" class="small-img"/>
                         </div>
                         <div class="samll-img-col">
-                            <img src="/assets/Imgs/BAsketball.webp"width="100%" class="small-img" alt="">
+                            <img src="assets/Imgs/<?php echo $row['product_image4'];?>"width="100%" class="small-img"/>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-lg-6 col-md-12 col-12">
+                    <div class="col-lg-6 col-md-12 col-12">
                     <h6>Men/T-shirts</h6>
-                    <h3 class="py-4"> Men's Fashion</h3>
-                    <h2>R.s. 8000</h2>
-                    <input type="number" value="1">
-                    <button class="buy-bth"> Add To Cart</button>
+                    <h3 class="py-4"><?php echo $row['product_name'];?></h3>
+                    <h2>R.s.<?php echo $row['product_price'];?></h2>
+                    <form method="post" action="cart.php">
+                        <input type="hidden" , name="product_id" , value="<?php echo $row['product_id'];?>">
+                        <input type="hidden" , name="product_image" value="<?php echo $row['product_image'];?>"> 
+                        <input type="hidden" , name="product_name" value="<?php echo $row['product_name'];?>"> 
+                        <input type="hidden" , name="product_price" value="<?php echo $row['product_price'];?>"> 
+                            <input type="number" name="product_quantity" value="1"/>
+                            <button class="buy-bth" type="submit" name="add_to_cart" > Add To Cart</button>
+                    </form>
                     <h4 class="mt-5 mb-5">Product details</h4>
-                    <span>The details of the product display shortly
-                        The details of the product display shortly
-                        The details of the product display shortly
-                        The details of the product display shortly
+                    <span><?php echo $row['product_description'];?>
                     </span>
                 </div>
+
+            <?php } ?>
             </div>
         </section>
 
