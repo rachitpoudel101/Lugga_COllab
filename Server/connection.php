@@ -1,5 +1,5 @@
 <?php
 
-$conn = mysql_connect("localhost" ,"root","","lugga")
+$conn = mysqli_connect("localhost" ,"root","","lugga")
         or die ("couldn't connect to dataabse")
 ?>

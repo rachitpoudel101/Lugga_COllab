@@ -1,3 +1,4 @@
+<?php include("Server/get_featured_products.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,7 @@
     <title>Home </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/assets/css/index.css">
+    <link rel="stylesheet" href="assets/css/index.css">
 </head>
 <body>
     <!--Navbar-->
@@ -22,13 +23,13 @@
                 <a class="nav-link" aria-current="page" href="/Html/index.php">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/Html/Shop.html">Shop</a>
+                <a class="nav-link" href="Shop.html">Shop</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Blog</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/Html/Contact.html">Contact Us</a>
+                <a class="nav-link" href=" Contact.html">Contact Us</a>
               </li>
               <li class="nav-item">
                 <a href="/Html/cart.html"> <i  class="fas fa-shopping-bag"></i></a>
@@ -98,8 +99,9 @@
         <p>Here you can check out our featured products</p>
       </div>
         <div class="row mx-auto container-fluid">
-          <div class="product text-centre col-lg-3 col-md-4 col-sm12">
-            <img class="img-fluid mb-3" src="/assets/Imgs/Gucci_Tshirts.avif" alt="">
+          <?php  while ($row = $featured_products->fetch_assoc()){ ?>
+            <div class="product text-centre col-lg-3 col-md-4 col-sm-12">
+            <img class="img-fluid mb-3" src="assets/Imgs/<?php echo $row['product_image'];?>"/>
             <div class="star">
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
@@ -107,52 +109,11 @@
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
             </div>
-            <h5 class="p-name">Sport clothes</h5>
-            <h4 class="p-price">R.s.600</h4>
+            <h5 class="p-name"><?php echo $row['product_name'];?></h5>
+            <h4 class="p-price">R.s.<?php echo $row['product_price'];?> </h4>
             <button class="buy-bth"> BUY NOW</button>
           </div>
-
-          <div class="product text-centre col-lg-3 col-md-4 col-sm12">
-            <img class="img-fluid mb-3" src="/assets/Imgs/Gucci_Tshirts.jpg" alt="">
-            <div class="star">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-            </div>
-            <h5 class="p-name">Sport clothes</h5>
-            <h4 class="p-price">R.s.600</h4>
-            <button class="buy-bth"> BUY NOW</button>
-          </div>
-
-          <div class="product text-centre col-lg-3 col-md-4 col-sm12">
-            <img class="img-fluid mb-3" src="/assets/Imgs/Channel_Tshirts.jpeg" alt="">
-            <div class="star">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-            </div>
-            <h5 class="p-name">Sport clothes</h5>
-            <h4 class="p-price">R.s.600</h4>
-            <button class="buy-bth"> BUY NOW</button>
-          </div>
-          <div class="product text-centre col-lg-3 col-md-4 col-sm12">
-            <img class="img-fluid mb-3" src="/assets/Imgs/BAsketball.webp" alt="">
-            <div class="star">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-            </div>
-            <h5 class="p-name">Sport clothes</h5>
-            <h4 class="p-price">R.s.600</h4>
-            <button class="buy-bth"> BUY NOW</button>
-          </div>
-
+           <?php } ?>
         </div>
     </section>
 
