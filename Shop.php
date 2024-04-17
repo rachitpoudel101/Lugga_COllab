@@ -1,3 +1,37 @@
+<?php
+session_start();
+include("server/connection.php");
+
+if (isset($_SESSION['logged_in'])) {
+    header("location: account.php");
+    exit;
+}
+
+if (isset($_POST['login_btn'])) {
+    $email = $_POST['email'];
+    $password = md5($_POST['password']);
+
+    $stmt = $conn->prepare("SELECT user_id, user_name, user_email, user_password FROM users WHERE user_email = ? AND user_password = ?");
+    $stmt->bind_param('ss', $email, $password);
+
+    if ($stmt->execute()) {
+        $stmt->bind_result($user_id, $username, $user_email, $user_password);
+
+        if ($stmt->fetch()) {
+            $_SESSION['user_id'] = $user_id;
+            $_SESSION['user_name'] = $username;
+            $_SESSION['user_email'] = $user_email;
+            $_SESSION['logged_in'] = true;
+            header('location: account.php?message=logged_in_successfully');
+        } else {
+            header('location: login.php?error=could_not_verify_your_account');
+        }
+    } else {
+        // Error: Something went wrong with the execution of the query
+        header('location: login.php?error=something_went_wrong');
+    }
+}
+?>
 
 
 
