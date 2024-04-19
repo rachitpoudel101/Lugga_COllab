@@ -99,7 +99,7 @@ if (isset($_POST['login_btn'])) {
             <hr class="mx-auto">
             </div>
             <div class="mx-auto container">
-            <form id="login-form">
+            <form id="login-form" action="login.php" method="POST">
                 <div class="form-group">
                 <label for="login-email">Email</label>
                 <input type="text" class="form-control" id="login-email" name="email" placeholder="Email" required>
