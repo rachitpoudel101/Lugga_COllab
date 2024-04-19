@@ -5,6 +5,9 @@ if(isset($_POST['add_to_cart'])){
       $_SESSION['cart'] = array();
         $product_array_ids = array_column($_SESSION['cart'],"product_id");
         if( !in_array($_POST['product_id'],$product_array_ids)){
+
+          $product_id = $_POST['product_id'];
+
             $product_array = array(
             'product_id' => $_POST['$product_id'],
             'product_name' => $_POST['$product_name'],
@@ -33,13 +36,71 @@ if(isset($_POST['add_to_cart'])){
         'product_quantity' => $product_quantity
 
       );
-      $_SESSION['cart'][$product_id] = $product_array;
+      $_SESSION['cart'][$product_id] = $product_array; 
+      // [ 2=>[] , 3=>[], 5=>[] ]
+      
     }
+
+    //calculate total
+    calculateTotalCart();
+    
+
+
+//remove product from cart
+}else if(isset($_POST['remove_product'])){
+
+  $product_id = $_POST['product_id'];
+  unset($_SESSION['cart'][$product_id]);
+
+  //calculate total
+  calculateTotalCart();
+
+}else if( isset($_POST['edit_quantity']) ){
+
+   //we get id and quantity from the form
+   $product_id = $_POST [' product_id'];
+   $product_quantity = $_POSTl['product_quantity'];
+   
+   //get the product array from the session
+   $product_array = $_SESSION [' cart'] [$product_id];
+   
+   //update product quantity
+   $product_array ['product_quantity'] = $product_quantity;
+   
+   // return array back its place
+   $_SESSION ['cart'] [$product_id] = $product_array;
+
+   //calculate total
+   calculateTotalCart(); 
 
 
 }else{
   header('Location:index.php');
 }
+
+
+function calculateTotalCart(){
+
+     $total =0;
+    
+    foreach($_SESSION['cart'] as $key => $value){
+
+        $product = $_SESSION['product_price'];
+        $quantity = $quantity['product_quantity'];
+
+        total = $total + ($price * $quantity);
+
+
+    } 
+
+    $_SESSION['total'] = $total;
+
+}
+
+
+
+
+
 
 ?>
 <!DOCTYPE html>
@@ -104,16 +165,27 @@ if(isset($_POST['add_to_cart'])){
                     <p><?php echo $value['product_name'];?></p>
                     <small><span>$</span><?php echo $value['product_price'];?></small>
                     <br>
-                    <a class="remove-btn" href="#">Remove</a>
+                    <from method="POST" action="cart.php">
+                        <input type="hidden" name="product_id" value="<?php echo $value['product_id']; ?>"/>
+                        <input type="submit" name="remove_product" class="remove-btn" value="remove"/>
+                    </from>
+
                     </div>
                 </div>
                 </td>
                 <td>
-                <input type="number" value="<?php echo $value['product_quantity'];?>">
-                <a class="edit-btn">Edit</a>
+
+                <from method="POST" action="cart.php">
+                <input class="hidden" name="product_id" value="<?php echo $value['product_id'];?>"/>
+                <input type="number" name="product_quantity" value="<?php echo $value['product_quantity'];?>">
+                <input type="submit" class="edit-btn" value="edit" name="edit_quantity"/>
+                </from>
+                
                 </td>
+
                 <td>
-                <span>$</span><span class="product-price">155</span>
+                    <span>$</span>
+                    <span class="product-price><?php echo $value['product_quantity'] * $value['product_price']; ?></span>
                 </td>
             </tr>
             </table>
@@ -121,20 +193,23 @@ if(isset($_POST['add_to_cart'])){
 
             <div class="cart-total">
                 <table>
-                    <tr>
+                    <!-- <<tr>
                         <td>Sub Total</td>
                         <td>$155</td>
-                    </tr>
+                    </tr> -->
                     <tr>
                         <td>Total</td>
-                        <td>$155</td>
+                        <td>$ <?php echo $_SESSION['total']; ?></td>
                     </tr>
                 </table>
             </div>
 
             <div class="checkout-container">
-                <button class="checkout-btn"> Checkout</button>
+              <form method="POST" action="checkout.php">
+                <input type="submit" class="btn checkout-btn" value="Checkout" name="checkout">
+            </from>   
             </div>
+            
         </section>
 
 
