@@ -1,34 +1,47 @@
-
 <?php
+// Start session to manage user session data
 session_start();
+
+// Include database connection file
 include("server/connection.php");
 
+// Check if user is already logged in, if yes, redirect to account page
 if (isset($_SESSION['logged_in'])) {
     header("location: account.php");
     exit;
 }
 
+// Check if login form is submitted
 if (isset($_POST['login_btn'])) {
+    // Get user input from login form
     $email = $_POST['email'];
-    $password = md5($_POST['password']);
+    $password = md5($_POST['password']); // Encrypt the password using md5 hashing algorithm
 
+    // Prepare SQL statement to retrieve user information from database
     $stmt = $conn->prepare("SELECT user_id, user_name, user_email, user_password FROM users WHERE user_email = ? AND user_password = ?");
-    $stmt->bind_param('ss', $email, $password);
+    $stmt->bind_param('ss', $email, $password); // Bind parameters to the prepared statement
 
+    // Execute the prepared statement
     if ($stmt->execute()) {
+        // Bind result variables
         $stmt->bind_result($user_id, $username, $user_email, $user_password);
 
+        // Fetch the result
         if ($stmt->fetch()) {
+            // If user exists, set session variables to store user data
             $_SESSION['user_id'] = $user_id;
             $_SESSION['user_name'] = $username;
             $_SESSION['user_email'] = $user_email;
-            $_SESSION['logged_in'] = true;
+            $_SESSION['logged_in'] = true; // Set logged_in session variable to true to indicate user is logged in
+
+            // Redirect to account page with success message
             header('location: account.php?message=logged_in_successfully');
         } else {
+            // If user does not exist, redirect to login page with error message
             header('location: login.php?error=could_not_verify_your_account');
         }
     } else {
-        // Error: Something went wrong with the execution of the query
+        // Error: Something went wrong with the execution of the query, redirect to login page with error message
         header('location: login.php?error=something_went_wrong');
     }
 }
