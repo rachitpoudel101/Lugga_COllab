@@ -38,7 +38,7 @@ if(isset($_POST['add_to_cart'])){
 
 
 }else{
-  header('Location:index.php');
+  //header('Location:index.php');
 }
 
 ?>
