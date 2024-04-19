@@ -1,3 +1,56 @@
+
+<?php
+session_start();
+include('server/connection.php');
+
+if (isset($_SESSION['logged_in'])) {
+    header('location: account.php');
+    exit;
+}
+
+if (isset($_POST['login_btn'])) {
+    $email = $_POST['email'];
+    $password = md5($_POST['password']);
+
+    $stmt = $conn->prepare("SELECT user_id, user_name, user_email, user_password FROM users WHERE user_email = ?");
+    $stmt->bind_param('s', $email);
+
+    if ($stmt->execute()) {
+        $stmt->store_result();
+
+        if ($stmt->num_rows() == 1) {
+            $stmt->bind_result($user_id, $user_name, $user_email, $user_password);
+            $stmt->fetch();
+
+            if ($password == $user_password) {
+                $_SESSION['user_id'] = $user_id;
+                $_SESSION['user_name'] = $user_name;
+                $_SESSION['user_email'] = $user_email;
+                $_SESSION['logged_in'] = true;
+                header('location: account.php?message=logged in successfully');
+                exit;
+            } else {
+                header('location: login.php?error=incorrect password');
+                exit;
+            }
+        } else {
+            header('location: login.php?error=user not found');
+            exit;
+        }
+    } else {
+        header('location: login.php?error=something went wrong');
+        exit;
+    }
+} else {
+    header('location: login.php');
+    exit;
+}
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
