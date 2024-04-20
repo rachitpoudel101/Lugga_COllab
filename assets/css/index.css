@@ -170,10 +170,10 @@ button:hover {
     opacity: 0.5;
 }
 
-/* fotter*/
+
 /* Footer */
 .bg-body-tertiary {
-    background-color: #f8f9fa; /* Light gray background */
+    background-color: #f8f9fa; 
   }
   
   .text-center {
@@ -182,7 +182,7 @@ button:hover {
   
   .container {
     width: 100%;
-    max-width: 1140px; /* Adjust as needed */
+    max-width: 1140px; 
     margin-right: auto;
     margin-left: auto;
     padding-right: 15px;
@@ -190,23 +190,23 @@ button:hover {
   }
   
   .p-4 {
-    padding: 1.5rem; /* Adjust as needed */
+    padding: 1.5rem; 
   }
   
   .mb-4 {
-    margin-bottom: 1.5rem; /* Adjust as needed */
+    margin-bottom: 1.5rem; 
   }
   
   .m-1 {
-    margin: 0.25rem; /* Adjust as needed */
+    margin: 0.25rem; 
   }
   
   .btn-outline {
-    border-width: 2px; /* Adjust as needed */
+    border-width: 2px; 
   }
   
   .btn-floating {
-    border-radius: 50%; /* Adjust as needed */
+    border-radius: 50%;  
   }
   
   .form-outline {
@@ -216,9 +216,9 @@ button:hover {
   .form-outline input {
     width: 100%;
     padding: 0.5rem;
-    font-size: 1rem; /* Adjust as needed */
-    border: 1px solid #ced4da; /* Adjust as needed */
-    border-radius: 0.25rem; /* Adjust as needed */
+    font-size: 1rem; 
+    border: 1px solid #ced4da; 
+    border-radius: 0.25rem; 
   }
   
   .form-label {
@@ -227,7 +227,7 @@ button:hover {
     left: 0.5rem;
     padding: 0.25rem;
     background-color: #fff;
-    font-size: 0.875rem; /* Adjust as needed */
+    font-size: 0.875rem; 
   }
   
   .col-auto {
@@ -245,12 +245,12 @@ button:hover {
   }
   
   .text-body {
-    color: #212529; /* Adjust as needed */
+    color: #212529; 
   }
   
   /* Styling for the footer links */
   .list-unstyled li {
-    margin-bottom: 8px; /* Adjust as needed */
+    margin-bottom: 8px; 
   }
   
   .list-unstyled li a {
@@ -264,7 +264,7 @@ button:hover {
   
   /* Styling for the copyright section */
   .text-reset {
-    color: #007bff; /* Adjust as needed */
+    color: #007bff; 
     text-decoration: none;
   }
   
@@ -273,7 +273,7 @@ button:hover {
   }
   
   .p-3 {
-    padding: 1rem !important; /* Adjust as needed */
+    padding: 1rem !important; 
     /* Additional styling for the background color */
     background-color: rgba(0, 0, 0, 0.05);
   }

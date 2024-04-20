@@ -37,7 +37,7 @@ else{
               <div class="collapse navbar-collapse nav-buttons" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">Home</a>
+                    <a class="nav-link" aria-current="page" href="http://localhost/Lugga_COllab/index.php">Home</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="#">Shop</a>
@@ -46,7 +46,7 @@ else{
                     <a class="nav-link" aria-disabled="true">Blog</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" aria-disabled="true">Contact Us</a>
+                    <a class="nav-link" aria-disabled="true" href="http://localhost/Lugga_COllab/Contact.php">Contact Us</a>
                   </li>
                   <li class="nav-item">
                     <i  class="fas fa-shopping-bag"></i>

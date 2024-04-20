@@ -79,23 +79,19 @@ if(isset($_POST['add_to_cart'])){
 }
 
 
-function calculateTotalCart(){
+function calculateTotalCart() {
+  $total = 0;
+  
+  foreach ($_SESSION['cart'] as $key => $value) {
+      $price = $value['product_price'];
+      $quantity = $value['product_quantity'];
 
-     $total =0;
-    
-    foreach($_SESSION['cart'] as $key => $value){
+      $total = $total + ($price * $quantity);
+  } 
 
-        $product = $_SESSION['product_price'];
-        $quantity = $quantity['product_quantity'];
-
-        total = $total + ($price * $quantity);
-
-
-    } 
-
-    $_SESSION['total'] = $total;
-
+  $_SESSION['total'] = $total;
 }
+
 
 
 
@@ -176,7 +172,7 @@ function calculateTotalCart(){
                 <td>
 
                 <from method="POST" action="cart.php">
-                <input class="hidden" name="product_id" value="<?php echo $value['product_id'];?>"/>
+                <!-- <input class="hidden" name="product_id" value="<?php echo $value['product_id'];?>"/> -->
                 <input type="number" name="product_quantity" value="<?php echo $value['product_quantity'];?>">
                 <input type="submit" class="edit-btn" value="edit" name="edit_quantity"/>
                 </from>
@@ -185,13 +181,13 @@ function calculateTotalCart(){
 
                 <td>
                     <span>$</span>
-                    <span class="product-price><?php echo $value['product_quantity'] * $value['product_price']; ?></span>
+                    <span class=product-price><?php echo $value['product_quantity'] * $value['product_price']; ?></span>
                 </td>
             </tr>
             </table>
             <?php }?>
 
-            <div class="cart-total">
+            <div class= "cart-total">
                 <table>
                     <!-- <<tr>
                         <td>Sub Total</td>
