@@ -1,11 +1,20 @@
 <?php
+// Start a session
 session_start();
+
+// Include the database connection file
 include('server/connection.php');
 
+// Check if admin is already logged in
 if (isset($_SESSION['admin_logged_in'])) {
+    // Redirect to index.php if admin is already logged in
     header('location: index.php');
+    // Exit the script to prevent further execution
     exit;
-}
+} 
+// End of PHP code
+?>
+
 
 if (isset($_POST['login_btn'])) {
     $email = $_POST['email'];
