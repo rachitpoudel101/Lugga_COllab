@@ -1,49 +1,55 @@
 <?php
-// Start session to manage user session data
 session_start();
+include('server/connection.php');
 
-// Include database connection file
-include("server/connection.php");
-
-// Check if user is already logged in, if yes, redirect to account page
 if (isset($_SESSION['logged_in'])) {
-    header("location: account.php");
+    header('location: account.php');
     exit;
-}
-
-// Check if login form is submitted
-if (isset($_POST['login_btn'])) {
-    // Get user input from login form
+if (isset($_POST['register'])) {
+    $name = $_POST['name'];
     $email = $_POST['email'];
-    $password = md5($_POST['password']); // Encrypt the password using md5 hashing algorithm
+    $password = $_POST['password'];
+    $confirmPassword = $_POST['confirmPassword'];
 
-    // Prepare SQL statement to retrieve user information from database
-    $stmt = $conn->prepare("SELECT user_id, user_name, user_email, user_password FROM users WHERE user_email = ? AND user_password = ?");
-    $stmt->bind_param('ss', $email, $password); // Bind parameters to the prepared statement
-
-    // Execute the prepared statement
-    if ($stmt->execute()) {
-        // Bind result variables
-        $stmt->bind_result($user_id, $username, $user_email, $user_password);
-
-        // Fetch the result
-        if ($stmt->fetch()) {
-            // If user exists, set session variables to store user data
-            $_SESSION['user_id'] = $user_id;
-            $_SESSION['user_name'] = $username;
-            $_SESSION['user_email'] = $user_email;
-            $_SESSION['logged_in'] = true; // Set logged_in session variable to true to indicate user is logged in
-
-            // Redirect to account page with success message
-            header('location: account.php?message=logged_in_successfully');
-        } else {
-            // If user does not exist, redirect to login page with error message
-            header('location: login.php?error=could_not_verify_your_account');
-        }
-    } else {
-        // Error: Something went wrong with the execution of the query, redirect to login page with error message
-        header('location: login.php?error=something_went_wrong');
+    // If password doesn't match
+    if ($password !== $confirmPassword) {
+        header('location: register.php?error=passwords_dont_match');
     }
+    // If password is less than 6 characters
+    elseif (strlen($password) < 6) {
+        header('location: register.php?error=password_must_be_at_least_6_characters');
+    } else {
+        // Check if there is a user with this email
+        $stmt1 = $conn->prepare("SELECT count(*) FROM users WHERE user_email=?");
+        $stmt1->bind_param('s', $email);
+        $stmt1->execute();
+        $stmt1->bind_result($num_rows);
+        $stmt1->store_result();
+        $stmt1->fetch();
+        $stmt1->close();
+
+        // If there is a user already registered with this email
+        if ($num_rows != 0) {
+            header('location: register.php?error=user_with_this_email_already_exists');
+        } else {
+            // Create a new user
+            $stmt = $conn->prepare("INSERT INTO users (user_name, user_email, user_password) VALUES (?,?,?)");
+            $stmt->bind_param('sss', $name, $email, md5($password));
+
+            // If account was created successfully
+            if ($stmt->execute()) {
+                $_SESSION['user_email'] = $email;
+                $_SESSION['user_name'] = $name;
+                $_SESSION['logged_in'] = true;
+                header('location: account.php?register=You_registered_successfully');
+            }
+            // Account could not be created
+            else {
+                header('location: register.php?error=could_not_create_an_account_at_the_moment');
+            }
+        }
+    }
+} 
 }
 ?>
 
@@ -51,9 +57,9 @@ if (isset($_POST['login_btn'])) {
 
 
 
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -94,34 +100,42 @@ if (isset($_POST['login_btn'])) {
         </div>
     </nav>
 
-    <!-- Login -->
+    <!-- Register -->
     <section class="my-5 py-5">
         <div class="container text-center mt-3 pt-5">
-            <h2 class="font-weight-bold">Login</h2>
+            <h2 class="font-weight-bold">Register</h2>
             <hr class="mx-auto">
         </div>
-        <div class="mx-auto container" method="POST" action="login.php">
-            <p style="color:red" class="text-center"><?php if (isset($_GET['error'])) echo htmlspecialchars($_GET['error']); ?></p>
-
-            <form id="login-form">
+        <div class="mx-auto container">
+            <form id="register-form" method="POST" action="register.php">
+                <p style="color: red;"><?php if (isset($_GET['error'])) {
+                                            echo $_GET['error'];
+                                        } ?></p>
                 <div class="form-group">
-                    <label for="login-email">Email</label>
-                    <input type="text" class="form-control" id="login-email" name="email" placeholder="Email" required>
+                    <label for="register-name">Name</label>
+                    <input type="text" class="form-control" id="register-name" name="name" placeholder="Name" required>
                 </div>
                 <div class="form-group">
-                    <label for="login-password">Password</label>
-                    <input type="password" class="form-control" id="login-password" name="password" placeholder="Password" required>
+                    <label for="register-email">Email</label>
+                    <input type="text" class="form-control" id="register-email" name="email" placeholder="Email" required>
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn" id="login-btn" name="login_btn value=" Login">
+                    <label for="register-password">Password</label>
+                    <input type="password" class="form-control" id="register-password" name="password" placeholder="Password" required>
                 </div>
                 <div class="form-group">
-                    <a id="register-url" class="btn">Don't have an account? Register</a>
+                    <label for="register-confirm-password">Confirm Password</label>
+                    <input type="password" class="form-control" id="register-confirm-password" name="confirmPassword" placeholder="Confirm Password" required>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn" id="register-btn" name="register" value="Register">
+                </div>
+                <div class="form-group">
+                    <a id="login-url" class="btn">Already have an account? Login</a>
                 </div>
             </form>
         </div>
     </section>
-
 
 
 
@@ -255,3 +269,5 @@ if (isset($_POST['login_btn'])) {
 </body>
 
 </html>
+
+
