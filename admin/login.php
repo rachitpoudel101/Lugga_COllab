@@ -16,43 +16,69 @@ if (isset($_SESSION['admin_logged_in'])) {
 ?>
 
 
+<?php
+// Check if the login button is pressed
 if (isset($_POST['login_btn'])) {
+    // Retrieve email and password from the form
     $email = $_POST['email'];
+    // Hash the password using md5
     $password = md5($_POST['password']);
-   $stmt = $conn->prepare("SELECT admin_id, admin_name, admin_email, admin_password FROM admin WHERE admin_email = ?");
+
+    // Prepare a SQL statement to fetch admin details based on email
+    $stmt = $conn->prepare("SELECT admin_id, admin_name, admin_email, admin_password FROM admin WHERE admin_email = ?");
+    // Bind the email parameter
     $stmt->bind_param('s', $email);
 
+    // Execute the SQL statement
     if ($stmt->execute()) {
+        // Store the result
         $stmt->store_result();
 
+        // Check if a matching admin record is found
         if ($stmt->num_rows() == 1) {
+            // Bind the result variables
             $stmt->bind_result($admin_id, $admin_name, $admin_email, $admin_password);
+            // Fetch the result
             $stmt->fetch();
 
+            // Check if the entered password matches the stored password
             if ($password == $admin_password) {
+                // Set session variables
                 $_SESSION['admin_id'] = $admin_id;
                 $_SESSION['admin_name'] = $admin_name;
                 $_SESSION['admin_email'] = $admin_email;
                 $_SESSION['admin_logged_in'] = true;
+
+                // Redirect to index.php with success message
                 header('location: index.php?message=logged in successfully');
+                // Exit the script
                 exit;
             } else {
+                // Redirect to login.php with error message for incorrect password
                 header('location: login.php?error=incorrect password');
+                // Exit the script
                 exit;
             }
         } else {
+            // Redirect to login.php with error message for user not found
             header('location: login.php?error=user not found');
+            // Exit the script
             exit;
         }
     } else {
+        // Redirect to login.php with generic error message
         header('location: login.php?error=something went wrong');
+        // Exit the script
         exit;
     }
 } else {
+    // Redirect to login.php if login button is not pressed
     header('location: login.php');
+    // Exit the script
     exit;
 }
 ?>
+
 <?php include( 'header.php'); ?>
 <div class="container-fluid">
     <div class="" style="min-height: 1000px">
