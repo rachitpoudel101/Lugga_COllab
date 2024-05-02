@@ -125,6 +125,7 @@
         <p>Here you can check out our featured products</p>
       </div>
         <div class="row mx-auto container-fluid">
+          
           <div class="product text-centre col-lg-3 col-md-4 col-sm12">
             <img class="img-fluid mb-3" src="/assets/Imgs/nevi_coat .png" alt="">
             <div class="star">

@@ -2,63 +2,58 @@
 session_start();
 include("server/connection.php");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve form data
-    $name = $_POST["name"];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $confirmPassword = $_POST["confirmPassword"];
+if(isset($_POST['register'])){
+  $name = $_POST['name'];
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+  $confirmPassword = $_POST['confirmPassword'];
 
-    // Validate form data (you can add more validation as needed)
-    $errors = [];
-    if (empty($name)) {
-        $errors[] = "Name is required";
-    }
-    if (empty($email)) {
-        $errors[] = "Email is required";
-    }
-    if (empty($password)) {
-        $errors[] = "Password is required";
-    }
-    if ($password != $confirmPassword) {
-        $errors[] = "Passwords do not match";
-    }
+  if($password !== $confirmPassword){
+    header('Location: register.php?error=passwords dont match');
+    exit();
+  } else if(strlen($password) < 6){
+    header('Location: register.php?error=Password must be at least 6 characters');
+    exit();
+  } else {
+      $stmt = $conn->prepare("SELECT count(*) FROM users WHERE user_email = ?");
+      $stmt->bind_param('s', $email); // Bind email parameter
+      $stmt->execute();
+      $stmt->bind_result($num_rows);
+      $stmt->fetch();
+      $stmt->close();
 
-    if (empty($errors)) {
-        // Prepare SQL statement to insert user data into the database
-        $sql = "INSERT INTO users (user_name, user_email, user_password) VALUES ('$name', '$email', '$password')";
-
-        // Execute SQL statement
-        if ($conn->query($sql) === TRUE) {
-            echo "Registration successful!";
+      if($num_rows > 0){
+        header('Location: register.php?error=email already exists');
+        exit();
+      } else {
+        $stmt = $conn->prepare("INSERT INTO users(user_name, user_email, user_password) VALUES(?, ?, ?)");
+        $stmt->bind_param('sss', $name, $email, $password); // Bind all parameters
+        if($stmt->execute()){
+          $_SESSION['user_email'] = $email;
+          $_SESSION['user_name'] = $name; 
+          $_SESSION['logged_in'] = true;
+          header('Location: account.php?register=You registered Successfully');
+          exit();
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-        }
-    } else {
-        // Display validation errors to the user
-        foreach ($errors as $error) {
-            echo "<p>$error</p>";
+          header('Location: register.php?error=Could not create an account currently');
+          exit();
         }
     }
-
-    // Close connection
-    $conn->close();
-}
+  }}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home </title>
+    <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="assets/css/index.css">
 </head>
 <body>
-    <!--Navbar-->
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light py-3 fixed top">
         <div class="container">
           <img src="/assets/Imgs/logo.png" alt="Logo">
@@ -80,8 +75,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <a class="nav-link" aria-disabled="true">Contact Us</a>
               </li>
               <li class="nav-item">
-                <i  class="fas fa-shopping-bag"></i>
-                <i  class="fa-solid fa-user"></i>
+                <a class="nav-link" href="#"><i class="fas fa-shopping-bag"></i></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-user"></i></a>
               </li>
             </ul>
           </div>
@@ -96,6 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div class="mx-auto container">
             <form id="register-form" action="register.php" method="POST">
+              <p style="color:red"><?php if(isset($_GET['error'])){ echo $_GET['error'];}?></p>
                 <div class="form-group">
                     <label for="register-name">Name</label>
                     <input type="text" class="form-control" id="register-name" name="name" placeholder="Name" required>
@@ -113,10 +111,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="password" class="form-control" id="register-confirm-password" name="confirmPassword" placeholder="Confirm Password" required>
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn" id="register-btn" value="Register">
+                    <input type="submit" class="btn" id="register-btn" name="register" value="Register">
                 </div>
                 <div class="form-group">
-                    <a id="login-url" class="btn">Already have an account? Login</a>
+                    <a id="login-url" class="btn" href="#">Already have an account? Login</a>
                 </div>
             </form>
         </div>

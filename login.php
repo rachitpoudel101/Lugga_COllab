@@ -2,48 +2,55 @@
 session_start();
 include("server/connection.php");
 
-if (isset($_SESSION['logged_in'])) {
-    header("location: account.php");
+if(isset($_SESSION['logged_in'])){
+    header('Location: account.php');
     exit;
 }
 
 if (isset($_POST['login_btn'])) {
     $email = $_POST['email'];
-    $password = md5($_POST['password']); // Hashing the password for comparison
+    $password = $_POST['password'];
 
-    // Prepare and execute the SQL query to fetch user details based on email and password
-    $stmt = $conn->prepare("SELECT user_id, user_name, user_email, user_password FROM users WHERE user_email = ? AND user_password = ?");
-    $stmt->bind_param('ss', $email, $password);
+    // Prepare SQL statement to fetch user data based on email
+    $stmt = $conn->prepare("SELECT user_id, user_name, user_email, user_password FROM users WHERE user_email = ? LIMIT 1");
+    $stmt->bind_param('s', $email);
 
     if ($stmt->execute()) {
         $stmt->store_result();
 
-        if ($stmt->num_rows > 0) {
-            // If user found, fetch user details
-            $stmt->bind_result($user_id, $username, $user_email, $user_password);
+        if ($stmt->num_rows == 1) {
+            // User found, bind the result
+            $stmt->bind_result($user_id, $username, $user_email, $user_password_hashed);
             $stmt->fetch();
 
-            // Set session variables
-            $_SESSION['user_id'] = $user_id;
-            $_SESSION['user_name'] = $username;
-            $_SESSION['user_email'] = $user_email;
-            $_SESSION['logged_in'] = true;
-
-            // Redirect to account page with success message
-            header('location: account.php?message=logged_in_successfully');
-            exit;
+            // Verify password
+            if (password_verify($password, $user_password_hashed)) {
+                // Password is correct, set session variables and redirect to account page
+                $_SESSION['user_id'] = $user_id;
+                $_SESSION['user_name'] = $username;
+                $_SESSION['user_email'] = $user_email;
+                $_SESSION['logged_in'] = true;
+                header('Location: account.php?message=logged_in_successfully');
+                exit;
+            } else {
+                // Password is incorrect
+                header('Location: login.php?error=incorrect_password');
+                exit;
+            }
         } else {
-            // If user not found, redirect with error message
-            header('location: login.php?error=could_not_verify_your_account');
+            // User not found
+            header('Location: login.php?error=user_not_found');
             exit;
         }
     } else {
-        // Error: Something went wrong with the execution of the query
-        header('location: login.php?error=something_went_wrong');
+        // Error occurred during query execution
+        header('Location: login.php?error=something_went_wrong');
         exit;
     }
 }
 ?>
+
+
 
 
 <!DOCTYPE html>
@@ -101,9 +108,9 @@ if (isset($_POST['login_btn'])) {
             <hr class="mx-auto">
         </div>
         <div class="mx-auto container" method="POST" action="login.php">
-            <p style="color:red" class="text-center"><?php if (isset($_GET['error'])) echo htmlspecialchars($_GET['error']); ?></p>
+            <p style="color:red" class="text-center"><?php if (isset($_GET['error'])) {echo htmlspecialchars($_GET['error']);} ?></p>
 
-            <form id="login-form" method="POST" action="index.PHP" onsubmit="showMessage('Login successful!')">
+            <form id="login-form" method="POST" action="login.php">
                 <div class="form-group">
                     <label for="login-email">Email</label>
                     <input type="text" class="form-control" id="login-email" name="email" placeholder="Email" required>
@@ -113,10 +120,10 @@ if (isset($_POST['login_btn'])) {
                     <input type="password" class="form-control" id="login-password" name="password" placeholder="Password" required>
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn" id="login-btn" name="login_btn value=" Login>
+                    <input type="submit" class="btn" id="login-btn" name="login_btn "value= "Login">
                 </div>
                 <div class="form-group">
-                    <a id="register-url" class="btn">Don't have an account? Register</a>
+                    <a id="register-url" href="register.php" class="btn">Don't have an account? Register</a>
                 </div>
             </form>
         </div>
