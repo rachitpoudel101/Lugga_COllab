@@ -6,11 +6,8 @@ include("includes/db.php");
 include("includes/header.php");
 include("functions/functions.php");
 include("includes/main.php");
-
 ?>
 
-
-  <!-- MAIN -->
   <main>
     <!-- HERO -->
     <div class="nero">
@@ -21,7 +18,6 @@ include("includes/main.php");
       </p>
     </div>
   </main>
-
 
 
 <div id="content" ><!-- content Starts -->
@@ -615,4 +611,3 @@ $("body").load('cart_body.php');
 </script>
 
 </body>
-</html>
