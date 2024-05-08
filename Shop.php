@@ -1,244 +1,355 @@
 <?php
+
 session_start();
-include("server/connection.php");
 
-if (isset($_SESSION['logged_in'])) {
-    header("location: account.php");
-    exit;
-}
+include("includes/db.php");
+include("includes/header.php");
+include("functions/functions.php");
+include("includes/main.php");
 
-if (isset($_POST['login_btn'])) {
-    $email = $_POST['email'];
-    $password = md5($_POST['password']);
+?>
+  <!-- MAIN -->
+  <main>
+    <!-- HERO -->
+    <div class="nero">
+      <div class="nero__heading">
+        <span class="nero__bold">shop</span> AT AVE
+      </div>
+      <p class="nero__text">
+      </p>
+    </div>
+  </main>
 
-    $stmt = $conn->prepare("SELECT user_id, user_name, user_email, user_password FROM users WHERE user_email = ? AND user_password = ?");
-    $stmt->bind_param('ss', $email, $password);
 
-    if ($stmt->execute()) {
-        $stmt->bind_result($user_id, $username, $user_email, $user_password);
+<div id="content" ><!-- content Starts -->
+<div class="container" ><!-- container Starts -->
 
-        if ($stmt->fetch()) {
-            $_SESSION['user_id'] = $user_id;
-            $_SESSION['user_name'] = $username;
-            $_SESSION['user_email'] = $user_email;
-            $_SESSION['logged_in'] = true;
-            header('location: account.php?message=logged_in_successfully');
-        } else {
-            header('location: login.php?error=could_not_verify_your_account');
-        }
-    } else {
-        // Error: Something went wrong with the execution of the query
-        header('location: login.php?error=something_went_wrong');
-    }
-}
+<div class="col-md-12" ><!--- col-md-12 Starts -->
+
+
+
+</div><!--- col-md-12 Ends -->
+
+<div class="col-md-3"><!-- col-md-3 Starts -->
+
+
+
+</div><!-- col-md-3 Ends -->
+
+<div class="col-md-9" ><!-- col-md-9 Starts --->
+
+
+<?php getProducts(); ?>
+
+</div><!-- row Ends -->
+
+<center><!-- center Starts -->
+
+<ul class="pagination" ><!-- pagination Starts -->
+
+<?php getPaginator(); ?>
+
+</ul><!-- pagination Ends -->
+
+</center><!-- center Ends -->
+
+
+
+</div><!-- col-md-9 Ends --->
+
+
+
+</div><!--- wait Ends -->
+
+</div><!-- container Ends -->
+</div><!-- content Ends -->
+
+
+
+<?php
+
+include("includes/footer.php");
+
 ?>
 
+<script src="js/jquery.min.js"> </script>
+
+<script src="js/bootstrap.min.js"></script>
+
+<script>
+
+$(document).ready(function(){
+
+/// Hide And Show Code Starts ///
+
+$('.nav-toggle').click(function(){
+
+$(".panel-collapse,.collapse-data").slideToggle(700,function(){
+
+if($(this).css('display')=='none'){
+
+$(".hide-show").html('Show');
+
+}
+else{
+
+$(".hide-show").html('Hide');
+
+}
+
+});
+
+});
+
+/// Hide And Show Code Ends ///
+
+/// Search Filters code Starts ///
+
+$(function(){
+
+$.fn.extend({
+
+filterTable: function(){
+
+return this.each(function(){
+
+$(this).on('keyup', function(){
+
+var $this = $(this),
+
+search = $this.val().toLowerCase(),
+
+target = $this.attr('data-filters'),
+
+handle = $(target),
+
+rows = handle.find('li a');
+
+if(search == '') {
+
+rows.show();
+
+} else {
+
+rows.each(function(){
+
+var $this = $(this);
+
+$this.text().toLowerCase().indexOf(search) === -1 ? $this.hide() : $this.show();
+
+});
+
+}
+
+});
+
+});
+
+}
+
+});
+
+$('[data-action="filter"][id="dev-table-filter"]').filterTable();
+
+});
+
+/// Search Filters code Ends ///
+
+});
 
 
 
+</script>
 
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home </title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/assets/css/index.css">
-</head>
-
-<body>
-    <!--Navbar-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light py-3 fixed top">
-        <div class="container">
-            <img src="/assets/Imgs/logo.png" alt="Logo">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse nav-buttons" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/Html/index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Html/Shop.html">Shop</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-disabled="true">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-disabled="true">Contact Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <i class="fas fa-shopping-bag"></i>
-                        <i class="fa-solid fa-user"></i>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Login -->
-    <section class="my-5 py-5">
-        <div class="container text-center mt-3 pt-5">
-            <h2 class="font-weight-bold">Login</h2>
-            <hr class="mx-auto">
-        </div>
-        <div class="mx-auto container" method="POST" action="login.php">
-            <p style="color:red" class="text-center"><?php if (isset($_GET['error'])) echo htmlspecialchars($_GET['error']); ?></p>
-
-            <form id="login-form">
-                <div class="form-group">
-                    <label for="login-email">Email</label>
-                    <input type="text" class="form-control" id="login-email" name="email" placeholder="Email" required>
-                </div>
-                <div class="form-group">
-                    <label for="login-password">Password</label>
-                    <input type="password" class="form-control" id="login-password" name="password" placeholder="Password" required>
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btn" id="login-btn" name="login_btn value=" Login">
-                </div>
-                <div class="form-group">
-                    <a id="register-url" class="btn">Don't have an account? Register</a>
-                </div>
-            </form>
-        </div>
-    </section>
+<script>
 
 
+$(document).ready(function(){
+
+  // getProducts Function Code Starts
+
+  function getProducts(){
+
+  // Manufacturers Code Starts
+
+    var sPath = '';
+
+var aInputs = $('li').find('.get_manufacturer');
+
+var aKeys = Array();
+
+var aValues = Array();
+
+iKey = 0;
+
+$.each(aInputs,function(key,oInput){
+
+if(oInput.checked){
+
+aKeys[iKey] =  oInput.value
+
+};
+
+iKey++;
+
+});
+
+if(aKeys.length>0){
+
+var sPath = '';
+
+for(var i = 0; i < aKeys.length; i++){
+
+sPath = sPath + 'man[]=' + aKeys[i]+'&';
+
+}
+
+}
+
+// Manufacturers Code ENDS
+
+// Products Categories Code Starts
+
+var aInputs = Array();
+
+var aInputs = $('li').find('.get_p_cat');
+
+var aKeys = Array();
+
+var aValues = Array();
+
+iKey = 0;
+
+$.each(aInputs,function(key,oInput){
+
+if(oInput.checked){
+
+aKeys[iKey] =  oInput.value
+
+};
+
+iKey++;
+
+});
+
+if(aKeys.length>0){
+
+for(var i = 0; i < aKeys.length; i++){
+
+sPath = sPath + 'p_cat[]=' + aKeys[i]+'&';
+
+}
+
+}
+
+// Products Categories Code ENDS
+
+   // Categories Code Starts
+
+var aInputs = Array();
+
+var aInputs = $('li').find('.get_cat');
+
+var aKeys  = Array();
+
+var aValues = Array();
+
+iKey = 0;
+
+    $.each(aInputs,function(key,oInput){
+
+    if(oInput.checked){
+
+    aKeys[iKey] =  oInput.value
+
+};
+
+    iKey++;
+
+});
+
+if(aKeys.length>0){
+
+    for(var i = 0; i < aKeys.length; i++){
+
+    sPath = sPath + 'cat[]=' + aKeys[i]+'&';
+
+}
+
+}
+
+   // Categories Code ENDS
+
+   // Loader Code Starts
+
+$('#wait').html('<img src="images/load.gif">');
+
+// Loader Code ENDS
+
+// ajax Code Starts
+
+$.ajax({
+
+url:"load.php",
+
+method:"POST",
+
+data: sPath+'sAction=getProducts',
+
+success:function(data){
+
+ $('#Products').html('');
+
+ $('#Products').html(data);
+
+ $("#wait").empty();
+
+}
+
+});
+
+    $.ajax({
+url:"load.php",
+method:"POST",
+data: sPath+'sAction=getPaginator',
+success:function(data){
+$('.pagination').html('');
+$('.pagination').html(data);
+}
+
+    });
+
+// ajax Code Ends
+
+   }
+
+   // getProducts Function Code Ends
+
+$('.get_manufacturer').click(function(){
+
+getProducts();
+
+});
 
 
+  $('.get_p_cat').click(function(){
+
+getProducts();
+
+});
+
+$('.get_cat').click(function(){
+
+getProducts();
+
+});
 
 
-    <!--Footer-->
-    <footer class="bg-body-tertiary text-center">
-        <div class="container p-4">
-            <section class="mb-4">
-                <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
-                <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"><i class="fab fa-twitter"></i></a>
-                <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"><i class="fab fa-google"></i></a>
-                <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"><i class="fab fa-instagram"></i></a>
-                <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"><i class="fab fa-linkedin-in"></i></a>
-                <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"><i class="fab fa-github"></i></a>
-            </section>
-            <section class="">
-                <form action="">
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-auto">
-                            <p class="pt-2">
-                                <strong>Sign up for our Website</strong>
-                            </p>
-                        </div>
-                        <div class="col-md-5 col-12">
-                            <div data-mdb-input-init class="form-outline mb-4">
-                                <input type="email" id="form5Example24" class="form-control" />
-                                <label class="form-label" for="form5Example24">Email address</label>
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <button data-mdb-ripple-init type="submit" class="btn btn-outline mb-4">
-                                Subscribe
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </section>
+ });
 
-            <section class="mb-4">
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
-                    repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam eum
-                    harum corrupti dicta, aliquam sequi voluptate quas.
-                </p>
-            </section>
-            <section class="">
-                <div class="row">
-                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                        <h5 class="text-uppercase">Contact Us </h5>
+</script>
 
-                        <ul class="list-unstyled mb-0">
-                            <li>
-                                <a class="text-body" href="#!">Shop</a>
-                            </li>
-                            <li>
-                                <a class="text-body" href="#!">account</a>
-                            </li>
-                            <li>
-                                <a class="text-body" href="#!">About Us</a>
-                            </li>
-                            <li>
-                                <a class="text-body" href="#!">Contact Us</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                        <h5 class="text-uppercase">Cataogery</h5>
-
-                        <ul class="list-unstyled mb-0">
-                            <li>
-                                <a class="text-body" href="#!">Men</a>
-                            </li>
-                            <li>
-                                <a class="text-body" href="#!">Woman</a>
-                            </li>
-                            <li>
-                                <a class="text-body" href="#!">kids</a>
-                            </li>
-                            <li>
-                                <a class="text-body" href="#!"></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                        <h5 class="text-uppercase">Seasonal</h5>
-
-                        <ul class="list-unstyled mb-0">
-                            <li>
-                                <a class="text-body" href="#!">Winter</a>
-                            </li>
-                            <li>
-                                <a class="text-body" href="#!">Spring</a>
-                            </li>
-                            <li>
-                                <a class="text-body" href="#!">Autum</a>
-                            </li>
-                            <li>
-                                <a class="text-body" href="#!">sUMMER</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                        <h5 class="text-uppercase">account</h5>
-
-                        <ul class="list-unstyled mb-0">
-                            <li>
-                                <a class="text-body" href="#!">My account</a>
-                            </li>
-                            <li>
-                                <a class="text-body" href="#!">Cart</a>
-                            </li>
-                            <li>
-                                <a class="text-body" href="#!">paymethod</a>
-                            </li>
-                            <li>
-                                <a class="text-body" href="#!">My dashboard</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-        </div>
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-            © 2020 Copyright:
-            <a class="text-reset fw-bold" href="">Lugga</a>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </body>
 
 </html>

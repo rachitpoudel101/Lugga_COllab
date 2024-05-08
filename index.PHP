@@ -1,325 +1,177 @@
-<?php include("Server/get_featured_products.php"); ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home </title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="assets/css/index.css">
-</head>
-<body>
-    <!--Navbar-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light py-3 fixed top">
-        <div class="container">
-          <img src="/assets/Imgs/logo.png" alt="Logo">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse nav-buttons" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="/Html/index.php">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="Shop.html">Shop</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Blog</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href=" Contact.html">Contact Us</a>
-              </li>
-              <li class="nav-item">
-                <a href="/Html/cart.html"> <i  class="fas fa-shopping-bag"></i></a>
-                <a href="/Html/account.html"><i  class="fa-solid fa-user"></i></a> 
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+<?php
 
-      <!--Home-->
+session_start();
 
-      <section id="home">
-        <div class="container">
-          <h5>NEW ARRIVALS</h5>
-          <h1><span>BestPrice </span>Of THe Season..</h1>
-          <p>But clothes In The Affordable Price..</p>
-          <button>Shop Now.</button>
-        </div>
-      </section>
+include("includes/db.php");
+include("includes/header.php");
+include("functions/functions.php");
+include("includes/main.php");
 
-    <!--Brand-->
-    <section id="brand" class="container">
-      <div class="row">
-        <img class="img-fluid col-lg-3 col-md-6 col-sm-12" src="/assets/Imgs/adidas.png" alt="Adidas">
-        <img class="img-fluid col-lg-3 col-md-6 col-sm-12" src="/assets/Imgs/Chanel.png" alt="Adidas">
-        <img class="img-fluid col-lg-3 col-md-6 col-sm-12" src="/assets/Imgs/Gucci.jpeg" alt="Adidas">
-        <img class="img-fluid col-lg-3 col-md-6 col-sm-12" src="/assets/Imgs/louis.webp" alt="Adidas">
-      </div>
-    </section>
+?>
 
-    <!--New-->
 
-    <section id="new" class="w-100">
-      <div class="row p-0 m-0">
-        <!--one-->
-        <div class="one col-lg-3 col-md-6 col-sm-12 p-0">
-          <img class="img-fulid" src="/assets/Imgs/sneakers_Adidas.jpg" alt="">
-          <div class="details">
-            <h2>Extermely Awesome Shones</h2>
-            <button class="text-uppercase">Shop Now</button>
-          </div>
-        </div>
-        <!--Two-->
-        <div class="one col-lg-3 col-md-6 col-sm-12 p-0">
-          <img class="img-fulid" src="/assets/Imgs/Channel_Tshirts.jpeg" alt="">
-          <div class="details">
-            <h2> Awesome Bags</h2>
-            <button class="text-uppercase">Shop Now</button>
-          </div>
-        </div>
-        <!--Three-->
-        <div class="one col-lg-3 col-md-6 col-sm-12 p-0">
-          <img class="img-fulid" src="/assets/Imgs/Pant.jpeg" alt="">
-          <div class="details">
-            <h2>50% Off in Tshirts</h2>
-            <button class="text-uppercase">Shop Now</button>
-          </div>
-      </div>
-    </section>
-
-    <!--Featured-->
-    <section id="featured" class="my-5 pb-7">
-      <div class="container text-centre mt-5 py-7">
-        <h3>Our featured</h3>
-        <hr>
-        <p>Here you can check out our featured products</p>
-      </div>
-        <div class="row mx-auto container-fluid">
-          <?php  while ($row = $featured_products->fetch_assoc()){ ?>
-            <div class="product text-centre col-lg-3 col-md-4 col-sm-12">
-            <img class="img-fluid mb-3" src="assets/Imgs/<?php echo $row['product_image'];?>"/>
-            <div class="star">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-            </div>
-            <h5 class="p-name"><?php echo $row['product_name'];?></h5>
-            <h4 class="p-price">R.s.<?php echo $row['product_price'];?> </h4>
-            <a href="<?php echo "single_product.php?product_id=". $row['product_id'];?>"><button class="buy-bth"> BUY NOW</button></a>
-          </div>
-           <?php } ?>
-        </div>
-    </section>
-
-    <!--Clothes-->
-    <section id="featured" class="my-5 ">
-      <div class="container text-centre mt-5 py-7">
-        <h3>Dress & Coats</h3>
-        <hr>
-        <p>Here you can check out our featured products</p>
-      </div>
-        <div class="row mx-auto container-fluid">
-          
-          <div class="product text-centre col-lg-3 col-md-4 col-sm12">
-            <img class="img-fluid mb-3" src="/assets/Imgs/nevi_coat .png" alt="">
-            <div class="star">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-            </div>
-            <h5 class="p-name">Sport clothes</h5>
-            <h4 class="p-price">R.s.600</h4>
-            <button class="buy-bth"> BUY NOW</button>
-          </div>
-
-          <div class="product text-centre col-lg-3 col-md-4 col-sm12">
-            <img class="img-fluid mb-3" src="/assets/Imgs/tshirt.jpg" alt="">
-            <div class="star">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-            </div>
-            <h5 class="p-name">Sport clothes</h5>
-            <h4 class="p-price">R.s.600</h4>
-            <button class="buy-bth"> BUY NOW</button>
-          </div>
-
-          <div class="product text-centre col-lg-3 col-md-4 col-sm12">
-            <img class="img-fluid mb-3" src="/assets/Imgs/Channel_Tshirts.jpeg" alt="">
-            <div class="star">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-            </div>
-            <h5 class="p-name">Sport clothes</h5>
-            <h4 class="p-price">R.s.600</h4>
-            <button class="buy-bth"> BUY NOW</button>
-          </div>
-          <div class="product text-centre col-lg-3 col-md-4 col-sm12">
-            <img class="img-fluid mb-3" src="/assets/Imgs/HOddy.jpg" alt="">
-            <div class="star">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-            </div>
-            <h5 class="p-name">Sport clothes</h5>
-            <h4 class="p-price">R.s.600</h4>
-            <button class="buy-bth"> BUY NOW</button>
-          </div>
-
-        </div>
-    </section>
-
-    <!--Footer-->
-    <footer class="bg-body-tertiary text-center">
-    <div class="container p-4">
-      <section class="mb-4">
-        <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-          ><i class="fab fa-facebook-f"></i
-        ></a>
-        <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-          ><i class="fab fa-twitter"></i
-        ></a>
-        <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-          ><i class="fab fa-google"></i
-        ></a>
-        <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-          ><i class="fab fa-instagram"></i
-        ></a>
-        <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-          ><i class="fab fa-linkedin-in"></i
-        ></a>
-        <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-          ><i class="fab fa-github"></i
-        ></a>
-      </section>
-      <section class="">
-        <form action="">
-          <div class="row d-flex justify-content-center">
-            <div class="col-auto">
-              <p class="pt-2">
-                <strong>Sign up for our Website</strong>
-              </p>
-            </div>
-            <div class="col-md-5 col-12">
-              <div data-mdb-input-init class="form-outline mb-4">
-                <input type="email" id="form5Example24" class="form-control" />
-                <label class="form-label" for="form5Example24">Email address</label>
-              </div>
-            </div>
-            <div class="col-auto">
-              <button data-mdb-ripple-init type="submit" class="btn btn-outline mb-4">
-                Subscribe
-              </button>
-            </div>
-          </div>
-        </form>
-      </section>
- 
-      <section class="mb-4">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
-          repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam eum
-          harum corrupti dicta, aliquam sequi voluptate quas.
-        </p>
-      </section>
-      <section class="">
-        <div class="row">
-          <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-            <h5 class="text-uppercase">Contact Us </h5>
-
-            <ul class="list-unstyled mb-0">
-              <li>
-                <a class="text-body" href="#!">Shop</a>
-              </li>
-              <li>
-                <a class="text-body" href="#!">account</a>
-              </li>
-              <li>
-                <a class="text-body" href="#!">About Us</a>
-              </li>
-              <li>
-                <a class="text-body" href="#!">Contact Us</a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-            <h5 class="text-uppercase">Cataogery</h5>
-
-            <ul class="list-unstyled mb-0">
-              <li>
-                <a class="text-body" href="#!">Men</a>
-              </li>
-              <li>
-                <a class="text-body" href="#!">Woman</a>
-              </li>
-              <li>
-                <a class="text-body" href="#!">kids</a>
-              </li>
-              <li>
-                <a class="text-body" href="#!"></a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-            <h5 class="text-uppercase">Seasonal</h5>
-
-            <ul class="list-unstyled mb-0">
-              <li>
-                <a class="text-body" href="#!">Winter</a>
-              </li>
-              <li>
-                <a class="text-body" href="#!">Spring</a>
-              </li>
-              <li>
-                <a class="text-body" href="#!">Autum</a>
-              </li>
-              <li>
-                <a class="text-body" href="#!">sUMMER</a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-            <h5 class="text-uppercase">account</h5>
-
-            <ul class="list-unstyled mb-0">
-              <li>
-                <a class="text-body" href="#!">My account</a>
-              </li>
-              <li>
-                <a class="text-body" href="#!">Cart</a>
-              </li>
-              <li>
-                <a class="text-body" href="#!">paymethod</a>
-              </li>
-              <li>
-                <a class="text-body" href="#!">My dashboard</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
+  <!-- Cover -->
+  <main>
+    <div class="hero">
+      <a href="shop.php" class="btn1">View all products
+</a>
     </div>
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-      © 2020 Copyright:
-      <a class="text-reset fw-bold" href="">Lugga</a>
-    </div>
-  </footer>
+    <!-- Main -->
+    <div class="wrapper">
+            <h1>Featured Collection<h1>
+            
+      </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+
+    <div id="content" class="container"><!-- container Starts -->
+
+    <div class="row"><!-- row Starts -->
+
+    <?php
+
+    getPro();
+
+    ?>
+
+    </div><!-- row Ends -->
+
+    </div><!-- container Ends -->
+    <!-- FOOTER -->
+    <footer class="page-footer">
+
+      <div class="footer-nav">
+        <div class="container clearfix">
+
+          <div class="footer-nav__col footer-nav__col--info">
+            <div class="footer-nav__heading">Information</div>
+            <ul class="footer-nav__list">
+              <li class="footer-nav__item">
+                <a href="#" class="footer-nav__link">The brand</a>
+              </li>
+              <li class="footer-nav__item">
+                <a href="#" class="footer-nav__link">Local stores</a>
+              </li>
+              <li class="footer-nav__item">
+                <a href="#" class="footer-nav__link">Customer service</a>
+              </li>
+              <li class="footer-nav__item">
+                <a href="#" class="footer-nav__link">Privacy &amp; cookies</a>
+              </li>
+              <li class="footer-nav__item">
+                <a href="#" class="footer-nav__link">Site map</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-nav__col footer-nav__col--whybuy">
+            <div class="footer-nav__heading">Why buy from us</div>
+            <ul class="footer-nav__list">
+              <li class="footer-nav__item">
+                <a href="#" class="footer-nav__link">Shipping &amp; returns</a>
+              </li>
+              <li class="footer-nav__item">
+                <a href="#" class="footer-nav__link">Secure shipping</a>
+              </li>
+              <li class="footer-nav__item">
+                <a href="#" class="footer-nav__link">Testimonials</a>
+              </li>
+              <li class="footer-nav__item">
+                <a href="#" class="footer-nav__link">Award winning</a>
+              </li>
+              <li class="footer-nav__item">
+                <a href="#" class="footer-nav__link">Ethical trading</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-nav__col footer-nav__col--account">
+            <div class="footer-nav__heading">Your account</div>
+            <ul class="footer-nav__list">
+              <li class="footer-nav__item">
+                <a href="#" class="footer-nav__link">Sign in</a>
+              </li>
+              <li class="footer-nav__item">
+                <a href="#" class="footer-nav__link">Register</a>
+              </li>
+              <li class="footer-nav__item">
+                <a href="#" class="footer-nav__link">View cart</a>
+              </li>
+              <li class="footer-nav__item">
+                <a href="#" class="footer-nav__link">View your lookbook</a>
+              </li>
+              <li class="footer-nav__item">
+                <a href="#" class="footer-nav__link">Track an order</a>
+              </li>
+              <li class="footer-nav__item">
+                <a href="#" class="footer-nav__link">Update information</a>
+              </li>
+            </ul>
+          </div>
+
+
+          <div class="footer-nav__col footer-nav__col--contacts">
+            <div class="footer-nav__heading">Contact details</div>
+            <address class="address">
+            Head Office: Avenue Fashion.<br>
+            Narayan chour naxal
+          </address>
+            <div class="phone">
+              Telephone:
+              <a class="phone__number" href="tel:9848553543">9848553543</a>
+            </div>
+            <div class="email">
+              Email:
+              <a href="mailto:support@store.com" class="email__addr">support@store.com</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="banners">
+        <div class="container clearfix">
+
+          <div class="banner-award">
+            <span>Award winner</span><br> Fashion awards 2020
+          </div>
+
+          <div class="banner-social">
+            <a href="#" class="banner-social__link">
+            <i class="icon-facebook"></i>
+          </a>
+            <a href="#" class="banner-social__link">
+            <i class="icon-twitter"></i>
+          </a>
+            <a href="#" class="banner-social__link">
+            <i class="icon-instagram"></i>
+          </a>
+            <a href="#" class="banner-social__link">
+            <i class="icon-pinterest-circled"></i>
+          </a>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="page-footer__subline">
+        <div class="container clearfix">
+
+          <div class="copyright">
+            &copy; l;ugga&trade;
+          </div>
+
+          <div class="developer">
+            Rachit, Anmol
+          </div>
+
+          <div class="designby">
+            Swroup Devekota
+          </div>
+
+        </div>
+      </div>
+    </footer>
 </body>
+
 </html>
