@@ -68,7 +68,9 @@ $run_manufacturer = mysqli_query($con,$get_manufacturer);
 
 $row_manfacturer = mysqli_fetch_array($run_manufacturer);
 
+$manufacturer_id = $row_manfacturer['manufacturer_id'];
 
+$manufacturer_title = $row_manfacturer['manufacturer_title'];
 
 
 $get_p_cat = "select * from product_categories where p_cat_id='$p_cat'";
@@ -178,8 +180,45 @@ Product Url Example : navy-blue-t-shirt
 
 </div><!-- form-group Ends -->
 
-<!-- 
-</div>-- form-group Ends -->
+<div class="form-group" ><!-- form-group Starts -->
+
+<label class="col-md-3 control-label" > Select A Manufacturer </label>
+
+<div class="col-md-6" >
+
+<select name="manufacturer" class="form-control">
+
+<option value="<?php echo $manufacturer_id; ?>">
+<?php echo $manufacturer_title; ?>
+</option>
+
+<?php
+
+$get_manufacturer = "select * from manufacturers";
+
+$run_manufacturer = mysqli_query($con,$get_manufacturer);
+
+while($row_manfacturer = mysqli_fetch_array($run_manufacturer)){
+
+$manufacturer_id = $row_manfacturer['manufacturer_id'];
+
+$manufacturer_title = $row_manfacturer['manufacturer_title'];
+
+echo "
+<option value='$manufacturer_id'>
+$manufacturer_title
+</option>
+";
+
+}
+
+?>
+
+</select>
+
+</div>
+
+</div><!-- form-group Ends -->
 
 <div class="form-group" ><!-- form-group Starts -->
 
@@ -349,11 +388,7 @@ echo "<option value='$cat_id'>$cat_title</option>";
 
 </li>
 
-<li>
 
-<a data-toggle="tab" href="#video"> Sounds And Videos </a>
-
-</li>
 
 </ul><!-- nav nav-tabs Ends -->
 

@@ -97,7 +97,7 @@
 				<div class="footer-nav__heading">Contact details</div>
 				<address class="address">
 				Head Office: Avenue Fashion.<br>
-				
+				180-182 Regent Street, London.
 			</address>
 				<div class="phone">
 					Telephone:
@@ -116,7 +116,7 @@
 		<div class="container clearfix">
 
 			<div class="banner-award">
-				<span>Award winner</span><br> Fashion awards 2023
+				<span>Award winner</span><br> Fashion awards 2016
 			</div>
 
 			<div class="banner-social">
@@ -130,7 +130,6 @@
 				<i class="icon-instagram"></i>
 			</a>
 				<a href="#" class="banner-social__link">
-					
 				<i class="icon-pinterest-circled"></i>
 			</a>
 			</div>
@@ -142,15 +141,15 @@
 		<div class="container clearfix">
 
 			<div class="copyright">
-				&copy;  Avenue Fashion&trade;
+				&copy; 2016 Avenue Fashion&trade;
 			</div>
 
 			<div class="developer">
-				Dev by 
+				Dev by Loremipsum.com
 			</div>
 
 			<div class="designby">
-				Design by 
+				Design by RobbyDesigns.com
 			</div>
 		</div>
 	</div>

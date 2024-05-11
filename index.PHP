@@ -50,9 +50,6 @@ include("includes/main.php");
                 <a href="#" class="footer-nav__link">The brand</a>
               </li>
               <li class="footer-nav__item">
-                <a href="#" class="footer-nav__link">Local stores</a>
-              </li>
-              <li class="footer-nav__item">
                 <a href="#" class="footer-nav__link">Customer service</a>
               </li>
               <li class="footer-nav__item">
@@ -113,8 +110,8 @@ include("includes/main.php");
           <div class="footer-nav__col footer-nav__col--contacts">
             <div class="footer-nav__heading">Contact details</div>
             <address class="address">
-            Head Office: Avenue Fashion.<br>
-            Narayan chour naxal
+            Head Office: Lugga.<br>
+            Naxal kathmnadu.
           </address>
             <div class="phone">
               Telephone:
@@ -122,7 +119,7 @@ include("includes/main.php");
             </div>
             <div class="email">
               Email:
-              <a href="mailto:support@store.com" class="email__addr">support@store.com</a>
+              <a href="mailto:support@shop.com" class="email__addr">support@shop.com</a>
             </div>
           </div>
 
@@ -133,7 +130,7 @@ include("includes/main.php");
         <div class="container clearfix">
 
           <div class="banner-award">
-            <span>Award winner</span><br> Fashion awards 2020
+            <span>Award winner</span><br> Fashion awards 2024
           </div>
 
           <div class="banner-social">
@@ -158,15 +155,15 @@ include("includes/main.php");
         <div class="container clearfix">
 
           <div class="copyright">
-            &copy; l;ugga&trade;
+            &copy; 2024 Lugga&trade;
           </div>
 
           <div class="developer">
-            Rachit, Anmol
+            Dev by Rachit, Swroup
           </div>
 
           <div class="designby">
-            Swroup Devekota
+            Design by Anmol ,Utsab,nimish,prajwal
           </div>
 
         </div>

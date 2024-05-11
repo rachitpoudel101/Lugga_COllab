@@ -51,10 +51,10 @@
 						<a href="#" class="footer-nav__link">Sign in</a>
 					</li>
 					<li class="footer-nav__item">
-						<a href="http://localhost/ecommerce_website/customer_register.php" class="footer-nav__link">Register</a>
+						<a href="#" class="footer-nav__link">Register</a>
 					</li>
 					<li class="footer-nav__item">
-						<a href="http://localhost/ecommerce_website/cart.php" class="footer-nav__link">View cart</a>
+						<a href="#" class="footer-nav__link">View cart</a>
 					</li>
 					<li class="footer-nav__item">
 						<a href="#" class="footer-nav__link">View your lookbook</a>
@@ -72,8 +72,8 @@
 			<div class="footer-nav__col footer-nav__col--contacts">
 				<div class="footer-nav__heading">Contact details</div>
 				<address class="address">
-				Head Office: Avenue Fashion.<br>
-				Narayanchour -naxal,kathmandu
+				Head Office: Lugga.<br>
+				Naxal nagpokhari,kathmnadu.
 			</address>
 				<div class="phone">
 					Telephone:
@@ -81,7 +81,7 @@
 				</div>
 				<div class="email">
 					Email:
-					<a href="mailto:support@store.com" class="email__addr">support@store.com</a>
+					<a href="mailto:support@shop.com" class="email__addr">support@shop.com</a>
 				</div>
 			</div>
 
@@ -92,8 +92,9 @@
 		<div class="container clearfix">
 
 			<div class="banner-award">
-				<span>Award winner</span><br> Fashion awards 2023
+				<span>Award winner</span><br> Fashion awards 2024
 			</div>
+
 			<div class="banner-social">
 				<a href="#" class="banner-social__link">
 				<i class="icon-facebook"></i>
@@ -116,7 +117,16 @@
 		<div class="container clearfix">
 
 			<div class="copyright">
-				&copy; 2024 Lugga&trade;
+				&copy; 2024 LUgga&trade;
+			</div>
+
+			<div class="developer">
+				Developed by Rachit, Swroup
+			</div>
+
+			<div class="designby">
+				<li> Initial Design by Anmol ,Utsab</li>
+				<li> Design updated by prajwal</li>
 			</div>
 		</div>
 	</div>

@@ -165,6 +165,34 @@ else {
 </li><!-- Products li Ends -->
 
 
+
+<li><!-- manufacturer li Starts -->
+
+<a href="#" data-toggle="collapse" data-target="#manufacturers"><!-- anchor Starts -->
+
+<i class="fa fa-fw fa-briefcase"></i> Manufacturers
+
+<i class="fa fa-fw fa-caret-down"></i>
+
+
+</a><!-- anchor Ends -->
+
+<ul id="manufacturers" class="collapse"><!-- ul collapse Starts -->
+
+<li>
+<a href="index.php?insert_manufacturer"> Insert Manufacturer </a>
+</li>
+
+<li>
+<a href="index.php?view_manufacturers"> View Manufacturers </a>
+</li>
+
+</ul><!-- ul collapse Ends -->
+
+
+</li><!-- manufacturer li Ends -->
+
+
 <li><!-- li Starts -->
 
 <a href="#" data-toggle="collapse" data-target="#p_cat">
@@ -216,7 +244,6 @@ else {
 </ul>
 
 </li><!-- li Ends -->
-
 
 
 
