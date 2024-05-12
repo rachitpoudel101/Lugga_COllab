@@ -79,7 +79,7 @@ else {
 
 <div class="form-group" ><!-- form-group Starts -->
 
-<label class="col-md-3 control-label" > Product type </label>
+<label class="col-md-3 control-label" > Product </label>
 
 <div class="col-md-6" >
 
@@ -89,7 +89,7 @@ else {
 
 <p style="font-size:15px; font-weight:bold;">
 
-Product type Example : navy-blue-t-shirt
+Product Url Example : navy-blue-t-shirt
 
 </p>
 

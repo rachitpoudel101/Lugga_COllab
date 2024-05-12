@@ -53,6 +53,8 @@ $pro_psp_price = $row_product['product_psp_price'];
 
 $pro_features = $row_product['product_features'];
 
+$pro_video = $row_product['product_video'];
+
 $status = $row_product['status'];
 
 $pro_url = $row_product['product_url'];
@@ -564,7 +566,6 @@ echo "Bundle Description";
 Features
 
 </a><!-- btn btn-primary tab Ends -->
-
 
 
 <hr style="margin-top:0px;">
