@@ -50,6 +50,9 @@ include("includes/main.php");
                 <a href="#" class="footer-nav__link">The brand</a>
               </li>
               <li class="footer-nav__item">
+                <a href="#" class="footer-nav__link">Local stores</a>
+              </li>
+              <li class="footer-nav__item">
                 <a href="#" class="footer-nav__link">Customer service</a>
               </li>
               <li class="footer-nav__item">
@@ -111,11 +114,11 @@ include("includes/main.php");
             <div class="footer-nav__heading">Contact details</div>
             <address class="address">
             Head Office: Lugga.<br>
-            Naxal kathmnadu.
+            Naxal,kathmandu
           </address>
             <div class="phone">
               Telephone:
-              <a class="phone__number" href="tel:9848553543">9848553543</a>
+              <a class="phone__number" href="tel:9848553543">984853543</a>
             </div>
             <div class="email">
               Email:
@@ -130,7 +133,7 @@ include("includes/main.php");
         <div class="container clearfix">
 
           <div class="banner-award">
-            <span>Award winner</span><br> Fashion awards 2024
+            <span>Award winner</span><br> Fashion awards 2020
           </div>
 
           <div class="banner-social">
@@ -155,15 +158,15 @@ include("includes/main.php");
         <div class="container clearfix">
 
           <div class="copyright">
-            &copy; 2024 Lugga&trade;
+            &copy; 2024 lugga&trade;
           </div>
 
           <div class="developer">
-            Dev by Rachit, Swroup
+            Dev by Swroup utasv,prajwal
           </div>
 
           <div class="designby">
-            Design by Anmol ,Utsab,nimish,prajwal
+            Design by Anmol,utsav
           </div>
 
         </div>

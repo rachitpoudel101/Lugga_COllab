@@ -73,7 +73,7 @@
 				<div class="footer-nav__heading">Contact details</div>
 				<address class="address">
 				Head Office: Lugga.<br>
-				Naxal nagpokhari,kathmnadu.
+				Naxal kathmandu
 			</address>
 				<div class="phone">
 					Telephone:
@@ -92,7 +92,7 @@
 		<div class="container clearfix">
 
 			<div class="banner-award">
-				<span>Award winner</span><br> Fashion awards 2024
+				<span>Award winner</span><br> Fashion awards 2020
 			</div>
 
 			<div class="banner-social">
@@ -117,16 +117,16 @@
 		<div class="container clearfix">
 
 			<div class="copyright">
-				&copy; 2024 LUgga&trade;
+				&copy; 2024 Lugga&trade;
 			</div>
 
 			<div class="developer">
-				Developed by Rachit, Swroup
+				Developed by swroup,rachit utsav
 			</div>
 
 			<div class="designby">
-				<li> Initial Design by Anmol ,Utsab</li>
-				<li> Design updated by prajwal</li>
+				<li> Initial Design by nimish prajwal</li>
+				<li> Design updated by Anmol</li>
 			</div>
 		</div>
 	</div>

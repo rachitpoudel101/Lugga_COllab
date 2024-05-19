@@ -79,7 +79,7 @@ else {
 
 <div class="form-group" ><!-- form-group Starts -->
 
-<label class="col-md-3 control-label" > Product </label>
+<label class="col-md-3 control-label" > Product name </label>
 
 <div class="col-md-6" >
 
@@ -89,7 +89,7 @@ else {
 
 <p style="font-size:15px; font-weight:bold;">
 
-Product Url Example : navy-blue-t-shirt
+Product name Example : navy-blue-t-shirt
 
 </p>
 
@@ -295,6 +295,7 @@ echo "<option value='$cat_id'>$cat_title</option>";
 <a data-toggle="tab" href="#features"> Product Features </a>
 
 </li>
+
 
 
 </ul><!-- nav nav-tabs Ends -->

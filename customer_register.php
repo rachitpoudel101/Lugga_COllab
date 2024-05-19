@@ -16,7 +16,7 @@ include("includes/main.php");
     <!-- HERO -->
     <div class="nero">
       <div class="nero__heading">
-        <span class="nero__bold">Register</span> AT AVE
+        <span class="nero__bold">Register</span> AT Lugga
       </div>
       <p class="nero__text">
       </p>
@@ -156,6 +156,13 @@ include("includes/main.php");
 <label> Customer Image </label>
 
 <input type="file" class="form-control" name="c_image" required>
+
+</div><!-- form-group Ends -->
+
+
+<div class="form-group"><!-- form-group Starts -->
+
+
 
 </div><!-- form-group Ends -->
 
@@ -316,7 +323,6 @@ if(val.length<=6)no=1;
 
 if(isset($_POST['register'])){
 
-
 $c_name = $_POST['c_name'];
 
 $c_email = $_POST['c_email'];
@@ -411,12 +417,6 @@ echo "<script>window.open('index.php','_self')</script>";
 
 
 }
-else{
-
-// echo "<script>alert('Please Select Captcha, Try Again')</script>";
-
-}
-
 
 
 
