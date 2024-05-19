@@ -1,10 +1,3 @@
-# Full eCommerce Website with Admin Panel Built with PHP & MySql
-
-*BEFORE USE PLEASE NOTE THAT THIS PROJECT WAS BUILT FOR EDUCATIONAL PURPOSES ONLY AND ITS NOT MAINTAINED BY ME ANYMORE SO IT MAY CONTAIN A LOT OF Bugs/Vulnerabilites, FEEL FREE TO USE IT AS YOU LIKE*
-
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Installing
 
@@ -15,11 +8,8 @@ Database Configuration
 - Open phpmyadmin
 - Create Database named “ecom_store”.
 - Import database : /ecom_store.sql
-- Open Your browser put inside URL: "http://localhost/ecommerce-website/”
-- To Login as admin : ”http://localhost/ecommerce-website/admin_area”
+- Open Your browser put inside URL: "http://localhost/COllab_Lugga/”
+- To Login as admin : ”http://localhost/COllab_Lugga/admin_area”
 ```
 
 
-## Authors & Licence
-
-* This project is open-source feel free to use it as you wish
