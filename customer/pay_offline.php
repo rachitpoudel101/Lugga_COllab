@@ -23,7 +23,7 @@ If you have any questions, please feel free to <a href="../contact.php" >contact
 
 <th> Bank Account Details </th>
 
-<th> Esewa,UBL NIC asia Cash Details: </th>
+<th> Easy Paisa,UBL Omni,Mobi Cash Details: </th>
 
 <th> Western Union Details: </th>
 
@@ -35,11 +35,11 @@ If you have any questions, please feel free to <a href="../contact.php" >contact
 
 <tr>
 
-<td> Bank Name:user Account No:03333333 Branch Code:0342 Branch Name:kathmandu	 </td>
+<td> Bank Name:ubl Account No:03333333 Branch Code:0342 Branch Name:Shadara Lahore	 </td>
 
-<td> NIC#001234567 Mobile No:9842576370, Name:Anmol shrestha </td>
+<td> NIC#001234567 Mobile No:03334566931, Name:M.T.Ahmed </td>
 
-<td> Full Name:Anmol shrestha, Mobile No:9842576370, Name:Rachit poudel, Country:Nepal
+<td> Full Name:M.T.Ahmed, Mobile No:03334566931, Name:M.T.Ahmed, Country:Pakistan, N.I.C No:001234567
 </td>
 
 

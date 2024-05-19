@@ -164,7 +164,31 @@ else {
 
 </li><!-- Products li Ends -->
 
+<li><!-- Bundles Li Starts --->
 
+<a href="#" data-toggle="collapse" data-target="#bundles">
+
+<i class="fa fa-fw fa-edit"></i> Bundles
+
+<i class="fa fa-fw fa-caret-down"></i>
+
+</a>
+
+<ul id="bundles" class="collapse">
+
+<li>
+<a href="index.php?insert_bundle"> Insert Bundle </a>
+</li>
+
+<li>
+<a href="index.php?view_bundles"> View Bundles </a>
+</li>
+
+</ul>
+
+</li><!-- Bundles Li Ends --->
+
+<li><!-- relations li Starts -->
 
 <li><!-- manufacturer li Starts -->
 
@@ -249,6 +273,7 @@ else {
 
 
 
+
 <li><!-- contact us li Starts -->
 
 <a href="#" data-toggle="collapse" data-target="#contact_us"><!-- anchor Starts -->
@@ -292,32 +317,6 @@ else {
 </a>
 
 </li><!-- about us li Ends -->
-
-
-<li><!-- Coupons Section li Starts -->
-
-<a href="#" data-toggle="collapse" data-target="#coupons"><!-- anchor Starts -->
-
-<i class="fa fa-fw fa-arrows-v"></i> Coupons
-
-<i class="fa fa-fw fa-caret-down"></i>
-
-</a><!-- anchor Ends -->
-
-<ul id="coupons" class="collapse"><!-- ul collapse Starts -->
-
-<li>
-<a href="index.php?insert_coupon"> Insert Coupon </a>
-</li>
-
-<li>
-<a href="index.php?view_coupons"> View Coupons </a>
-</li>
-
-</ul><!-- ul collapse Ends -->
-
-</li><!-- Coupons Section li Ends -->
-
 
 
 <li><!-- terms li Starts -->

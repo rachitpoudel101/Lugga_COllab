@@ -66,7 +66,7 @@
 
         <div class="logo">
           <a class="logo__link" href="../index.php">
-            <img class="logo__img" src="images/logo.png" alt="Lugga logotype" width="237" height="19">
+            <img class="logo__img" src="images/logo.png" alt="Avenue fashion logotype" width="237" height="19">
           </a>
         </div>
 
@@ -84,12 +84,6 @@
               <a class="categories__link" href="#">
                 Womens
             
-              </a>
-            </li>
-
-            <li class="categories__item">
-              <a class="categories__link categories__link--active" href="shop.php">
-                Shop
               </a>
             </li>
 

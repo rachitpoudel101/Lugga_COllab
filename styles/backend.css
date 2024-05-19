@@ -690,7 +690,7 @@ img {
 }
 
 .page-footer .footer-nav__link:hover {
-  color: #2b2b2b
+  color: #f10000
 }
 
 .page-footer .banners {
@@ -709,7 +709,7 @@ img {
   color: #fff;
   text-align: center;
   text-transform: uppercase;
-  background-color: #333
+  background-color: #ec0606
 }
 
 .page-footer .banners .banner-award span {
@@ -723,7 +723,7 @@ img {
   padding-top: 80px;
   font-size: 0;
   text-align: center;
-  background-color: #0eca82
+  background-color: #00c8c8
 }
 
 .page-footer .banners .banner-social__link {
@@ -741,7 +741,7 @@ img {
 }
 
 .page-footer .banners .banner-social__link:hover {
-  color: #333
+  color: #b90505
 }
 
 .page-footer__subline {
