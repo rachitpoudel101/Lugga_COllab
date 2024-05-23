@@ -1,12 +1,11 @@
 <?php
+  session_start();
 
-session_start();
-
-include("includes/db.php");
-include("includes/header.php");
-include("functions/functions.php");
-include("includes/main.php");
-?>
+  include("includes/db.php");
+  include("includes/header.php");
+  include("functions/functions.php");
+  include("includes/main.php");
+  ?>
 
   <main>
     <!-- HERO -->
@@ -19,595 +18,562 @@ include("includes/main.php");
     </div>
   </main>
 
+  <div id="content"><!-- content Starts -->
+    <div class="container"><!-- container Starts -->
 
-<div id="content" ><!-- content Starts -->
-<div class="container" ><!-- container Starts -->
+      <div class="col-md-9" id="cart"><!-- col-md-9 Starts -->
 
+        <div class="box"><!-- box Starts -->
 
+          <form action="cart.php" method="post" enctype="multipart/form-data"><!-- form Starts -->
 
-<div class="col-md-9" id="cart" ><!-- col-md-9 Starts -->
+            <h1> Shopping Cart </h1>
 
-<div class="box" ><!-- box Starts -->
+            <?php
+            $ip_add = getRealUserIp();
+            $select_cart = "select * from cart where ip_add='$ip_add'";
+            $run_cart = mysqli_query($con,$select_cart);
+            $count = mysqli_num_rows($run_cart);
+            ?>
 
-<form action="cart.php" method="post" enctype="multipart-form-data" ><!-- form Starts -->
 
-<h1> Shopping Cart </h1>
+  <p class="text-muted"> You currently have <?php echo $count; ?> item(s) in your cart. </p>
 
-<?php
+  <div class="table-responsive"><!-- table-responsive Starts -->
+    <table class="table"><!-- table Starts -->
+      <thead><!-- thead Starts -->
+        <tr>
+          <th colspan="2">Product</th>
+          <th>Quantity</th>
+          <th>Unit Price</th>
+          <th>Size</th>
+          <th colspan="1">Delete</th>
+          <th colspan="2">Sub Total</th>
+        </tr>
+      </thead><!-- thead Ends -->
 
-$ip_add = getRealUserIp();
+      <tbody><!-- tbody Starts -->
+        <?php
+        $total = 0;
 
-$select_cart = "select * from cart where ip_add='$ip_add'";
+        while ($row_cart = mysqli_fetch_array($run_cart)) {
+          $pro_id = $row_cart['p_id'];
+          $pro_size = $row_cart['size'];
+          $pro_qty = $row_cart['qty'];
+          $only_price = $row_cart['p_price'];
 
-$run_cart = mysqli_query($con,$select_cart);
+          $get_products = "select * from products where product_id='$pro_id'";
+          $run_products = mysqli_query($con, $get_products);
 
-$count = mysqli_num_rows($run_cart);
+          while ($row_products = mysqli_fetch_array($run_products)) {
+            $product_title = $row_products['product_title'];
+            $product_img1 = $row_products['product_img1'];
+            $sub_total = $only_price * $pro_qty;
+            $_SESSION['pro_qty'] = $pro_qty;
+            $total += $sub_total;
+        ?>
+  <tr><!-- tr Starts -->
 
-?>
+  <td>
 
-<p class="text-muted" > You currently have <?php echo $count; ?> item(s) in your cart. </p>
+  <img src="admin_area/product_images/<?php echo $product_img1; ?>" >
 
-<div class="table-responsive" ><!-- table-responsive Starts -->
+  </td>
 
-<table class="table" ><!-- table Starts -->
+  <td>
 
-<thead><!-- thead Starts -->
+  <a href="#" > <?php echo $product_title; ?> </a>
 
-<tr>
+  </td>
 
-<th colspan="2" >Product</th>
+  <td>
+  <input type="text" name="quantity" value="<?php echo $_SESSION['pro_qty']; ?>" data-product_id="<?php echo $pro_id; ?>" class="quantity form-control">
+  </td>
 
-<th>Quantity</th>
+  <td>
 
-<th>Unit Price</th>
+  $<?php echo $only_price; ?>.00
 
-<th>Size</th>
+  </td>
 
-<th colspan="1">Delete</th>
+  <td>
 
-<th colspan="2"> Sub Total </th>
+  <?php echo $pro_size; ?>
 
+  </td>
 
-</tr>
+  <td>
+  <input type="checkbox" name="remove[]" value="<?php echo $pro_id; ?>">
+  </td>
 
-</thead><!-- thead Ends -->
+  <td>
 
-<tbody><!-- tbody Starts -->
+  $<?php echo $sub_total; ?>.00
 
-<?php
+  </td>
 
-$total = 0;
+  </tr><!-- tr Ends -->
 
-while($row_cart = mysqli_fetch_array($run_cart)){
+  <?php } } ?>
 
-$pro_id = $row_cart['p_id'];
+  </tbody><!-- tbody Ends -->
 
-$pro_size = $row_cart['size'];
+  <tfoot><!-- tfoot Starts -->
 
-$pro_qty = $row_cart['qty'];
+  <tr>
 
-$only_price = $row_cart['p_price'];
+  <th colspan="5"> Total </th>
 
-$get_products = "select * from products where product_id='$pro_id'";
+  <th colspan="2"> $<?php echo $total; ?>.00 </th>
 
-$run_products = mysqli_query($con,$get_products);
+  </tr>
 
-while($row_products = mysqli_fetch_array($run_products)){
+  </tfoot><!-- tfoot Ends -->
 
-$product_title = $row_products['product_title'];
+  </table><!-- table Ends -->
 
-$product_img1 = $row_products['product_img1'];
+  <div class="form-inline pull-right"><!-- form-inline pull-right Starts -->
 
-$sub_total = $only_price*$pro_qty;
+  <div class="form-group"><!-- form-group Starts -->
 
-$_SESSION['pro_qty'] = $pro_qty;
+  <label>Coupon Code : </label>
 
-$total += $sub_total;
+  <input type="text" name="code" class="form-control">
 
-?>
+  </div><!-- form-group Ends -->
 
-<tr><!-- tr Starts -->
+  <input class="btn btn-primary" type="submit" name="apply_coupon" value="Apply Coupon Code" >
 
-<td>
+  </div><!-- form-inline pull-right Ends -->
 
-<img src="admin_area/product_images/<?php echo $product_img1; ?>" >
+  </div><!-- table-responsive Ends -->
 
-</td>
 
-<td>
+  <div class="box-footer"><!-- box-footer Starts -->
 
-<a href="#" > <?php echo $product_title; ?> </a>
+  <div class="pull-left"><!-- pull-left Starts -->
 
-</td>
+  <a href="index.php" class="btn btn-default">
 
-<td>
-<input type="text" name="quantity" value="<?php echo $_SESSION['pro_qty']; ?>" data-product_id="<?php echo $pro_id; ?>" class="quantity form-control">
-</td>
+  <i class="fa fa-chevron-left"></i> Continue Shopping
 
-<td>
+  </a>
 
-$<?php echo $only_price; ?>.00
+  </div><!-- pull-left Ends -->
 
-</td>
+  <div class="pull-right"><!-- pull-right Starts -->
 
-<td>
+  <button class="btn btn-default" type="submit" name="update" value="Update Cart">
 
-<?php echo $pro_size; ?>
+  <i class="fa fa-refresh"></i> Update Cart
 
-</td>
+  </button>
 
-<td>
-<input type="checkbox" name="remove[]" value="<?php echo $pro_id; ?>">
-</td>
+  <a href="checkout.php" class="btn btn-primary">
 
-<td>
+  Proceed to checkout <i class="fa fa-chevron-right"></i>
 
-$<?php echo $sub_total; ?>.00
+  </a>
 
-</td>
+  </div><!-- pull-right Ends -->
 
-</tr><!-- tr Ends -->
+  </div><!-- box-footer Ends -->
 
-<?php } } ?>
+  </form><!-- form Ends -->
 
-</tbody><!-- tbody Ends -->
 
-<tfoot><!-- tfoot Starts -->
+  </div><!-- box Ends -->
 
-<tr>
+  <?php
 
-<th colspan="5"> Total </th>
+  if(isset($_POST['apply_coupon'])){
 
-<th colspan="2"> $<?php echo $total; ?>.00 </th>
+  $code = $_POST['code'];
 
-</tr>
+  if($code == ""){
 
-</tfoot><!-- tfoot Ends -->
 
-</table><!-- table Ends -->
+  }
+  else{
 
-<div class="form-inline pull-right"><!-- form-inline pull-right Starts -->
+  $get_coupons = "select * from coupons where coupon_code='$code'";
 
-<div class="form-group"><!-- form-group Starts -->
+  $run_coupons = mysqli_query($con,$get_coupons);
 
-<label>Coupon Code : </label>
+  $check_coupons = mysqli_num_rows($run_coupons);
 
-<input type="text" name="code" class="form-control">
+  if($check_coupons == 1){
 
-</div><!-- form-group Ends -->
+  $row_coupons = mysqli_fetch_array($run_coupons);
 
-<input class="btn btn-primary" type="submit" name="apply_coupon" value="Apply Coupon Code" >
+  $coupon_pro = $row_coupons['product_id'];
 
-</div><!-- form-inline pull-right Ends -->
+  $coupon_price = $row_coupons['coupon_price'];
 
-</div><!-- table-responsive Ends -->
+  $coupon_limit = $row_coupons['coupon_limit'];
 
+  $coupon_used = $row_coupons['coupon_used'];
 
-<div class="box-footer"><!-- box-footer Starts -->
 
-<div class="pull-left"><!-- pull-left Starts -->
+  if($coupon_limit == $coupon_used){
 
-<a href="index.php" class="btn btn-default">
+  echo "<script>alert('Your Coupon Code Has Been Expired')</script>";
 
-<i class="fa fa-chevron-left"></i> Continue Shopping
+  }
+  else{
 
-</a>
+  $get_cart = "select * from cart where p_id='$coupon_pro' AND ip_add='$ip_add'";
 
-</div><!-- pull-left Ends -->
+  $run_cart = mysqli_query($con,$get_cart);
 
-<div class="pull-right"><!-- pull-right Starts -->
+  $check_cart = mysqli_num_rows($run_cart);
 
-<button class="btn btn-default" type="submit" name="update" value="Update Cart">
 
-<i class="fa fa-refresh"></i> Update Cart
+  if($check_cart == 1){
 
-</button>
+  $add_used = "update coupons set coupon_used=coupon_used+1 where coupon_code='$code'";
 
-<a href="checkout.php" class="btn btn-primary">
+  $run_used = mysqli_query($con,$add_used);
 
-Proceed to checkout <i class="fa fa-chevron-right"></i>
+  $update_cart = "update cart set p_price='$coupon_price' where p_id='$coupon_pro' AND ip_add='$ip_add'";
 
-</a>
+  $run_update = mysqli_query($con,$update_cart);
 
-</div><!-- pull-right Ends -->
+  echo "<script>alert('Your Coupon Code Has Been Applied')</script>";
 
-</div><!-- box-footer Ends -->
+  echo "<script>window.open('cart.php','_self')</script>";
 
-</form><!-- form Ends -->
+  }
+  else{
 
+  echo "<script>alert('Product Does Not Exist In Cart')</script>";
 
-</div><!-- box Ends -->
+  }
 
-<?php
+  }
 
-if(isset($_POST['apply_coupon'])){
+  }
+  else{
 
-$code = $_POST['code'];
+  echo "<script> alert('Your Coupon Code Is Not Valid') </script>";
 
-if($code == ""){
+  }
 
+  }
 
-}
-else{
 
-$get_coupons = "select * from coupons where coupon_code='$code'";
+  }
 
-$run_coupons = mysqli_query($con,$get_coupons);
 
-$check_coupons = mysqli_num_rows($run_coupons);
+  ?>
 
-if($check_coupons == 1){
+  <?php
 
-$row_coupons = mysqli_fetch_array($run_coupons);
+  function update_cart(){
 
-$coupon_pro = $row_coupons['product_id'];
+  global $con;
 
-$coupon_price = $row_coupons['coupon_price'];
+  if(isset($_POST['update'])){
 
-$coupon_limit = $row_coupons['coupon_limit'];
+  foreach($_POST['remove'] as $remove_id){
 
-$coupon_used = $row_coupons['coupon_used'];
 
+  $delete_product = "delete from cart where p_id='$remove_id'";
 
-if($coupon_limit == $coupon_used){
+  $run_delete = mysqli_query($con,$delete_product);
 
-echo "<script>alert('Your Coupon Code Has Been Expired')</script>";
+  if($run_delete){
+  echo "<script>window.open('cart.php','_self')</script>";
+  }
 
-}
-else{
 
-$get_cart = "select * from cart where p_id='$coupon_pro' AND ip_add='$ip_add'";
 
-$run_cart = mysqli_query($con,$get_cart);
+  }
 
-$check_cart = mysqli_num_rows($run_cart);
 
 
-if($check_cart == 1){
 
-$add_used = "update coupons set coupon_used=coupon_used+1 where coupon_code='$code'";
+  }
 
-$run_used = mysqli_query($con,$add_used);
 
-$update_cart = "update cart set p_price='$coupon_price' where p_id='$coupon_pro' AND ip_add='$ip_add'";
 
-$run_update = mysqli_query($con,$update_cart);
+  }
 
-echo "<script>alert('Your Coupon Code Has Been Applied')</script>";
+  echo @$up_cart = update_cart();
 
-echo "<script>window.open('cart.php','_self')</script>";
 
-}
-else{
 
-echo "<script>alert('Product Does Not Exist In Cart')</script>";
+  ?>
 
-}
 
-}
 
-}
-else{
+  <div id="row same-height-row"><!-- row same-height-row Starts -->
 
-echo "<script> alert('Your Coupon Code Is Not Valid') </script>";
+  <div class="col-md-3 col-sm-6"><!-- col-md-3 col-sm-6 Starts -->
 
-}
+  <div class="box same-height headline"><!-- box same-height headline Starts -->
 
-}
+  <h3 class="text-center"> You also like these Products </h3>
 
+  </div><!-- box same-height headline Ends -->
 
-}
+  </div><!-- col-md-3 col-sm-6 Ends -->
 
+  <?php
 
-?>
+  $get_products = "select * from products order by rand() LIMIT 0,3";
 
-<?php
+  $run_products = mysqli_query($con,$get_products);
 
-function update_cart(){
+  while($row_products=mysqli_fetch_array($run_products)){
 
-global $con;
+  $pro_id = $row_products['product_id'];
 
-if(isset($_POST['update'])){
+  $pro_title = $row_products['product_title'];
 
-foreach($_POST['remove'] as $remove_id){
+  $pro_price = $row_products['product_price'];
 
+  $pro_img1 = $row_products['product_img1'];
 
-$delete_product = "delete from cart where p_id='$remove_id'";
+  $pro_label = $row_products['product_label'];
 
-$run_delete = mysqli_query($con,$delete_product);
+  $manufacturer_id = $row_products['manufacturer_id'];
 
-if($run_delete){
-echo "<script>window.open('cart.php','_self')</script>";
-}
+  $get_manufacturer = "select * from manufacturers where manufacturer_id='$manufacturer_id'";
 
+  $run_manufacturer = mysqli_query($db,$get_manufacturer);
 
+  $row_manufacturer = mysqli_fetch_array($run_manufacturer);
 
-}
+  $manufacturer_name = $row_manufacturer['manufacturer_title'];
 
+  $pro_psp_price = $row_products['product_psp_price'];
 
+  $pro_url = $row_products['product_url'];
 
 
-}
+  if($pro_label == "Sale" or $pro_label == "Gift"){
 
+  $product_price = "<del> $$pro_price </del>";
 
+  $product_psp_price = "| $$pro_psp_price";
 
-}
+  }
+  else{
 
-echo @$up_cart = update_cart();
+  $product_psp_price = "";
 
+  $product_price = "$$pro_price";
 
+  }
 
-?>
 
+  if($pro_label == ""){
 
 
-<div id="row same-height-row"><!-- row same-height-row Starts -->
+  }
+  else{
 
-<div class="col-md-3 col-sm-6"><!-- col-md-3 col-sm-6 Starts -->
+  $product_label = "
 
-<div class="box same-height headline"><!-- box same-height headline Starts -->
+  <a class='label sale' href='#' style='color:black;'>
 
-<h3 class="text-center"> You also like these Products </h3>
+  <div class='thelabel'>$pro_label</div>
 
-</div><!-- box same-height headline Ends -->
+  <div class='label-background'> </div>
 
-</div><!-- col-md-3 col-sm-6 Ends -->
+  </a>
 
-<?php
+  ";
 
-$get_products = "select * from products order by rand() LIMIT 0,3";
+  }
 
-$run_products = mysqli_query($con,$get_products);
 
-while($row_products=mysqli_fetch_array($run_products)){
+  echo "
 
-$pro_id = $row_products['product_id'];
+  <div class='col-md-3 col-sm-6 center-responsive' >
 
-$pro_title = $row_products['product_title'];
+  <div class='product' >
 
-$pro_price = $row_products['product_price'];
+  <a href='$pro_url' >
 
-$pro_img1 = $row_products['product_img1'];
+  <img src='admin_area/product_images/$pro_img1' class='img-responsive' >
 
-$pro_label = $row_products['product_label'];
+  </a>
 
-$manufacturer_id = $row_products['manufacturer_id'];
+  <div class='text' >
 
-$get_manufacturer = "select * from manufacturers where manufacturer_id='$manufacturer_id'";
+  <center>
 
-$run_manufacturer = mysqli_query($db,$get_manufacturer);
+  <p class='btn btn-primary'> $manufacturer_name </p>
 
-$row_manufacturer = mysqli_fetch_array($run_manufacturer);
+  </center>
 
-$manufacturer_name = $row_manufacturer['manufacturer_title'];
+  <hr>
 
-$pro_psp_price = $row_products['product_psp_price'];
+  <h3><a href='$pro_url' >$pro_title</a></h3>
 
-$pro_url = $row_products['product_url'];
+  <p class='price' > $product_price $product_psp_price </p>
 
+  <p class='buttons' >
 
-if($pro_label == "Sale" or $pro_label == "Gift"){
+  <a href='$pro_url' class='btn btn-default' >View details</a>
 
-$product_price = "<del> $$pro_price </del>";
+  <a href='$pro_url' class='btn btn-primary'>
 
-$product_psp_price = "| $$pro_psp_price";
+  <i class='fa fa-shopping-cart'></i> Add to cart
 
-}
-else{
+  </a>
 
-$product_psp_price = "";
 
-$product_price = "$$pro_price";
+  </p>
 
-}
+  </div>
 
+  $product_label
 
-if($pro_label == ""){
 
+  </div>
 
-}
-else{
+  </div>
 
-$product_label = "
+  ";
 
-<a class='label sale' href='#' style='color:black;'>
 
-<div class='thelabel'>$pro_label</div>
+  }
 
-<div class='label-background'> </div>
 
-</a>
 
-";
 
-}
+  ?>
 
 
-echo "
+  </div><!-- row same-height-row Ends -->
 
-<div class='col-md-3 col-sm-6 center-responsive' >
 
-<div class='product' >
+  </div><!-- col-md-9 Ends -->
 
-<a href='$pro_url' >
+  <div class="col-md-3"><!-- col-md-3 Starts -->
 
-<img src='admin_area/product_images/$pro_img1' class='img-responsive' >
+  <div class="box" id="order-summary"><!-- box Starts -->
 
-</a>
+  <div class="box-header"><!-- box-header Starts -->
 
-<div class='text' >
+  <h3>Order Summary</h3>
 
-<center>
+  </div><!-- box-header Ends -->
 
-<p class='btn btn-primary'> $manufacturer_name </p>
+  <p class="text-muted">
+  Shipping and additional costs are calculated based on the values you have entered.
+  </p>
 
-</center>
+  <div class="table-responsive"><!-- table-responsive Starts -->
 
-<hr>
+  <table class="table"><!-- table Starts -->
 
-<h3><a href='$pro_url' >$pro_title</a></h3>
+  <tbody><!-- tbody Starts -->
 
-<p class='price' > $product_price $product_psp_price </p>
+  <tr>
 
-<p class='buttons' >
+  <td> Order Subtotal </td>
 
-<a href='$pro_url' class='btn btn-default' >View details</a>
+  <th> $<?php echo $total; ?>.00 </th>
 
-<a href='$pro_url' class='btn btn-primary'>
+  </tr>
 
-<i class='fa fa-shopping-cart'></i> Add to cart
+  <tr>
 
-</a>
+  <td> Shipping and handling </td>
 
+  <th>$0.00</th>
 
-</p>
+  </tr>
 
-</div>
+  <tr>
 
-$product_label
+  <td>Tax</td>
 
+  <th>$0.00</th>
 
-</div>
+  </tr>
 
-</div>
+  <tr class="total">
 
-";
+  <td>Total</td>
 
+  <th>$<?php echo $total; ?>.00</th>
 
-}
+  </tr>
 
+  </tbody><!-- tbody Ends -->
 
+  </table><!-- table Ends -->
 
+  </div><!-- table-responsive Ends -->
 
-?>
+  </div><!-- box Ends -->
 
+  </div><!-- col-md-3 Ends -->
 
-</div><!-- row same-height-row Ends -->
+  </div><!-- container Ends -->
+  </div><!-- content Ends -->
 
 
-</div><!-- col-md-9 Ends -->
 
-<div class="col-md-3"><!-- col-md-3 Starts -->
+  <?php
 
-<div class="box" id="order-summary"><!-- box Starts -->
+  include("includes/footer.php");
 
-<div class="box-header"><!-- box-header Starts -->
+  ?>
 
-<h3>Order Summary</h3>
+  <script src="js/jquery.min.js"> </script>
 
-</div><!-- box-header Ends -->
+  <script src="js/bootstrap.min.js"></script>
 
-<p class="text-muted">
-Shipping and additional costs are calculated based on the values you have entered.
-</p>
+  <script>
 
-<div class="table-responsive"><!-- table-responsive Starts -->
+  $(document).ready(function(data){
 
-<table class="table"><!-- table Starts -->
+  $(document).on('keyup', '.quantity', function(){
 
-<tbody><!-- tbody Starts -->
+  var id = $(this).data("product_id");
 
-<tr>
+  var quantity = $(this).val();
 
-<td> Order Subtotal </td>
+  if(quantity  != ''){
 
-<th> $<?php echo $total; ?>.00 </th>
+  $.ajax({
 
-</tr>
+  url:"change.php",
 
-<tr>
+  method:"POST",
 
-<td> Shipping and handling </td>
+  data:{id:id, quantity:quantity},
 
-<th>$0.00</th>
+  success:function(data){
 
-</tr>
+  $("body").load('cart_body.php');
 
-<tr>
+  }
 
-<td>Tax</td>
 
-<th>$0.00</th>
 
-</tr>
 
-<tr class="total">
+  });
 
-<td>Total</td>
 
-<th>$<?php echo $total; ?>.00</th>
+  }
 
-</tr>
 
-</tbody><!-- tbody Ends -->
 
-</table><!-- table Ends -->
 
-</div><!-- table-responsive Ends -->
+  });
 
-</div><!-- box Ends -->
 
-</div><!-- col-md-3 Ends -->
 
-</div><!-- container Ends -->
-</div><!-- content Ends -->
 
+  });
 
+  </script>
 
-<?php
-
-include("includes/footer.php");
-
-?>
-
-<script src="js/jquery.min.js"> </script>
-
-<script src="js/bootstrap.min.js"></script>
-
-<script>
-
-$(document).ready(function(data){
-
-$(document).on('keyup', '.quantity', function(){
-
-var id = $(this).data("product_id");
-
-var quantity = $(this).val();
-
-if(quantity  != ''){
-
-$.ajax({
-
-url:"change.php",
-
-method:"POST",
-
-data:{id:id, quantity:quantity},
-
-success:function(data){
-
-$("body").load('cart_body.php');
-
-}
-
-
-
-
-});
-
-
-}
-
-
-
-
-});
-
-
-
-
-});
-
-</script>
-
-</body>
+  </body>

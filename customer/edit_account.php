@@ -26,11 +26,11 @@ $customer_image = $row_customer['customer_image'];
 
 ?>
 
-<h1 align="center" > Edit Your Account </h1>
+<h1 align="center"> Edit Your Account </h1>
 
-<form action="" method="post" enctype="multipart/form-data" ><!--- form Starts -->
+<form action="" method="post" enctype="multipart/form-data"><!-- form Starts -->
 
-<div class="form-group" ><!-- form-group Starts -->
+<div class="form-group"><!-- form-group Starts -->
 
 <label> Customer Name: </label>
 
@@ -39,7 +39,7 @@ $customer_image = $row_customer['customer_image'];
 
 </div><!-- form-group Ends -->
 
-<div class="form-group" ><!-- form-group Starts -->
+<div class="form-group"><!-- form-group Starts -->
 
 <label> Customer Email: </label>
 
@@ -48,7 +48,7 @@ $customer_image = $row_customer['customer_image'];
 
 </div><!-- form-group Ends -->
 
-<div class="form-group" ><!-- form-group Starts -->
+<div class="form-group"><!-- form-group Starts -->
 
 <label> Customer Country: </label>
 
@@ -57,7 +57,7 @@ $customer_image = $row_customer['customer_image'];
 
 </div><!-- form-group Ends -->
 
-<div class="form-group" ><!-- form-group Starts -->
+<div class="form-group"><!-- form-group Starts -->
 
 <label> Customer City: </label>
 
@@ -66,7 +66,7 @@ $customer_image = $row_customer['customer_image'];
 
 </div><!-- form-group Ends -->
 
-<div class="form-group" ><!-- form-group Starts -->
+<div class="form-group"><!-- form-group Starts -->
 
 <label> Customer Contact: </label>
 
@@ -75,7 +75,7 @@ $customer_image = $row_customer['customer_image'];
 
 </div><!-- form-group Ends -->
 
-<div class="form-group" ><!-- form-group Starts -->
+<div class="form-group"><!-- form-group Starts -->
 
 <label> Customer Address: </label>
 
@@ -84,18 +84,18 @@ $customer_image = $row_customer['customer_image'];
 
 </div><!-- form-group Ends -->
 
-<div class="form-group" ><!-- form-group Starts -->
+<div class="form-group"><!-- form-group Starts -->
 
 <label> Customer Image: </label>
 
-<input type="file" name="c_image" class="form-control" required ><br>
+<input type="file" name="c_image" class="form-control" required><br>
 
-<img src="customer_images/<?php echo $customer_image; ?>" width="100" height="100" class="img-responsive" >
+<img src="customer_images/<?php echo $customer_image; ?>" width="100" height="100" class="img-responsive">
 
 
 </div><!-- form-group Ends -->
 
-<div class="text-center" ><!-- text-center Starts -->
+<div class="text-center"><!-- text-center Starts -->
 
 <button name="update" class="btn btn-primary" >
 
@@ -107,45 +107,27 @@ $customer_image = $row_customer['customer_image'];
 </div><!-- text-center Ends -->
 
 
-</form><!--- form Ends -->
+</form><!-- form Ends -->
 
 <?php
 
 if(isset($_POST['update'])){
-
-$update_id = $customer_id;
-
-$c_name = $_POST['c_name'];
-
-$c_email = $_POST['c_email'];
-
-$c_country = $_POST['c_country'];
-
-$c_city = $_POST['c_city'];
-
-$c_contact = $_POST['c_contact'];
-
-$c_address = $_POST['c_address'];
-
-$c_image = $_FILES['c_image']['name'];
-
-$c_image_tmp = $_FILES['c_image']['tmp_name'];
-
-move_uploaded_file($c_image_tmp,"customer_images/$c_image");
-
-$update_customer = "update customers set customer_name='$c_name',customer_email='$c_email',customer_country='$c_country',customer_city='$c_city',customer_contact='$c_contact',customer_address='$c_address',customer_image='$c_image' where customer_id='$update_id'";
-
-$run_customer = mysqli_query($con,$update_customer);
-
-if($run_customer){
-
-echo "<script>alert('Your account has been updated please login again')</script>";
-
-echo "<script>window.open('logout.php','_self')</script>";
-
+    $update_id = $customer_id;
+    $c_name = $_POST['c_name'];
+    $c_email = $_POST['c_email'];
+    $c_country = $_POST['c_country'];
+    $c_city = $_POST['c_city'];
+    $c_contact = $_POST['c_contact'];
+    $c_address = $_POST['c_address'];
+    $c_image = $_FILES['c_image']['name'];
+    $c_image_tmp = $_FILES['c_image']['tmp_name'];
+    move_uploaded_file($c_image_tmp,"customer_images/$c_image");
+    $update_customer = "update customers set customer_name='$c_name',customer_email='$c_email',customer_country='$c_country',customer_city='$c_city',customer_contact='$c_contact',customer_address='$c_address',customer_image='$c_image' where customer_id='$update_id'";
+    $run_customer = mysqli_query($con,$update_customer);
+    if($run_customer){
+        echo "<script>alert('Your account has been updated please login again')</script>";
+        echo "<script>window.open('logout.php','_self')</script>";
+    }
 }
-
-}
-
 
 ?>

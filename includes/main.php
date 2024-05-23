@@ -35,11 +35,7 @@
 <?php
 if(!isset($_SESSION['customer_email'])){
   echo '<a href="customer_register.php" class="login__link">Register</a>';
-} 
-  else
-  { 
-      echo '<a href="my_account.php?my_orders" class="login__link">My Account</a>';
-  }   
+}    
 ?>  
 </li>
 
@@ -48,11 +44,7 @@ if(!isset($_SESSION['customer_email'])){
 <?php
 if(!isset($_SESSION['customer_email'])){
   echo '<a href="checkout.php" class="login__link">Sign In</a>';
-} 
-  else
-  { 
-      echo '<a href="../logout.php" class="login__link">Log out</a>';
-  }   
+}    
 ?>  
   
 </li>

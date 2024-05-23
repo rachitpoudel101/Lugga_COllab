@@ -20,12 +20,12 @@
           </a>
         </div>
 
-        <div class="basket">
+        <!-- <div class="basket">
           <a href="cart.php" class="btn btn--basket">
             <i class="icon-basket"></i>
             <?php items(); ?> items
           </a>
-        </div>
+        </div> -->
         
         
         <ul class="login">
