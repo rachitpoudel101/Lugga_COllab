@@ -127,8 +127,8 @@ include("includes/main.php");
   <div class="page-footer__subline">
     <div class="container clearfix">
       <div class="copyright">&copy; 2024 lugga&trade;</div>
-      <div class="developer">Dev by Swroup utasv,prajwal</div>
-      <div class="designby">Design by Anmol,utsav</div>
+      <div class="developer">Dev by Rachit</div>
+      <div class="designby">Design by Rachit</div>
     </div>
   </div>
 </footer>
